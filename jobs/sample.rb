@@ -1,4 +1,4 @@
-current_valuation = 0
+urrent_valuation = 0
 current_karma = 0
 
 SCHEDULER.every '2s' do
