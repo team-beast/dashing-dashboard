@@ -17,9 +17,11 @@ GEM
       sprockets
       thin
       thor
+    eventmachine (1.0.3)
     eventmachine (1.0.3-x86-mingw32)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    git_repository (0.0.11)
     hike (1.2.1)
     httparty (0.8.1)
       multi_json
@@ -68,5 +70,6 @@ PLATFORMS
 
 DEPENDENCIES
   dashing
+  git_repository
   leankitkanban
   xml-simple
