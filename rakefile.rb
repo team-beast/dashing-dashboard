@@ -1,4 +1,4 @@
-task :default => [:dependencies, :unit_tests, :commit]
+task :default => [:dependencies, :unit_tests, :commit, :deploy]
 
 task :dependencies do
 	sh "bundle install"
