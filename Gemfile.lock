@@ -66,6 +66,7 @@ GEM
     xml-simple (1.1.2)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
