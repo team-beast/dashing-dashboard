@@ -1,3 +1,5 @@
+require './tests/jscript/lib/qunit.rb'
+
 task :default => [:dependencies, :unit_tests, :commit, :deploy]
 
 task :dependencies do
@@ -23,4 +25,10 @@ task :deploy do
 	require 'git_repository'
 	git = GitRepository.new(:remote => "heroku")
 	git.push
+end
+
+qunit :qunit do |config|
+	config.phantom_exe = './tests/jscript/lib/phantomjs'
+	config.qunit_runner = './tests/jscript/lib/run-qunit.js'
+	config.test_directory = './tests/jscript'
 end
