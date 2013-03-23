@@ -27,8 +27,8 @@ task :deploy do
 	git.push
 end
 
-# qunit :qunit do |config|
-# 	config.phantom_exe = './tests/jscript/lib/phantomjs'
-# 	config.qunit_runner = './tests/jscript/lib/run-qunit.js'
-# 	config.test_directory = './tests/jscript'
-# end
+qunit :qunit do |config|
+	config.phantom_exe = './tests/jscript/lib/phantomjs'
+	config.qunit_runner = './tests/jscript/lib/run-qunit.js'
+	config.test_directory = './tests/jscript'
+end
