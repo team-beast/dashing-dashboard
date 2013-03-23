@@ -1,4 +1,4 @@
-# require './tests/jscript/lib/qunit.rb'
+require './tests/jscript/lib/qunit.rb'
 
 task :default => [:dependencies, :unit_tests, :commit, :deploy]
 
