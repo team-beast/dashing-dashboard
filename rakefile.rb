@@ -1,12 +1,13 @@
 require './tests/jscript/lib/qunit.rb'
 
 task :default => [:dependencies, :unit_tests, :commit, :deploy]
+multitask :unit_tests => [:ruby_tests, :qunit] 
 
 task :dependencies do
 	sh "bundle install"
 end
 
-task :unit_tests do
+task :ruby_tests do
 	Dir["./tests/**/*.rb"].each do | file |
 		sh "ruby #{file}"
 	end
