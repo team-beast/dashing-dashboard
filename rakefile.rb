@@ -8,9 +8,15 @@ task :dependencies do
 end
 
 task :ruby_tests do
-	Dir["./tests/**/*.rb"].each do | file |
+	Dir["./tests/ruby/**/*.rb"].each do | file |
 		sh "ruby #{file}"
 	end
+end
+
+qunit :qunit do |config|
+	config.phantom_exe = './tests/jscript/lib/phantomjs'
+	config.qunit_runner = './tests/jscript/lib/run-qunit.js'
+	config.test_directory = './tests/jscript'
 end
 
 task :commit do
@@ -28,10 +34,4 @@ task :deploy do
 	require 'git_repository'
 	git = GitRepository.new(:remote => "heroku")
 	git.push
-end
-
-qunit :qunit do |config|
-	config.phantom_exe = './tests/jscript/lib/phantomjs'
-	config.qunit_runner = './tests/jscript/lib/run-qunit.js'
-	config.test_directory = './tests/jscript'
 end
