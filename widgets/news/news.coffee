@@ -1,9 +1,21 @@
 class Dashing.News extends Dashing.Widget
- 
+
   ready: ->
-    # This is fired when the widget is done being rendered
- 
+    @currentIndex = 0
+    @headlineElem = $(@node).find('.headline-container')
+    @nextComment()
+    @startCarousel()
+
   onData: (data) ->
-    # Handle incoming data
-    # You can access the html node of this widget with `@node`
-    # Example: $(@node).fadeOut().fadeIn() will make the node flash each time data comes in.
+    @currentIndex = 0
+
+  startCarousel: ->
+    setInterval(@nextComment, 8000)
+
+  nextComment: =>
+    headlines = @get('headlines')
+    if headlines
+      @headlineElem.fadeOut =>
+        @currentIndex = (@currentIndex + 1) % headlines.length
+        @set 'current_headline', headlines[@currentIndex]
+        @headlineElem.fadeIn()

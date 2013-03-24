@@ -1,7 +1,8 @@
-require 'net/http'
-require 'xmlsimple'
+require_relative '../src/news/BbcNews'
 
- 
+@BBC_News = BbcNews.new()
+
 SCHEDULER.every '15m', :first_in => 0 do |job|
- 	send_event('news', { :message => 'hello world'})
+	headlines = @BBC_News.latest_headlines
+ 	send_event('news', { :headlines => headlines})
 end
