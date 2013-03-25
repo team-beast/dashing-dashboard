@@ -35,6 +35,6 @@ class TestCycleTime < Test::Unit::TestCase
 		# boards = LeanKitKanban::Board.all
 		board = LeanKitKanban::Board.find(32404545).inspect
 
-		p board
+		# p board
 	end
 end

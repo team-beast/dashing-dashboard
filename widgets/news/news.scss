@@ -13,25 +13,27 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);;
 .widget-news {
 
   background-color: $background-color;
+  vertical-align: baseline !important;
 
   .headline-container {
     display: none;
   }
 
-  .headline .left {
-  	float: left;
+  .heading span {
+    color: black;
   }
 
-  .headline .right {
-  	float: right;
+  .heading img {
+    margin-top: -5px;
   }
 
   .description {
-  	font-size: 0.6em;
+  	font-size: 0.8em;
   }
 
   .heading{
   	font-size: 1.2em;
+    padding: 20px;
   }
 
 }

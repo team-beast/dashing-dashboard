@@ -1,7 +1,7 @@
 require './tests/jscript/lib/qunit.rb'
 
 task :default => [:dependencies, :unit_tests, :commit, :deploy]
-multitask :unit_tests => [:ruby_tests, :qunit] 
+multitask :unit_tests => [:ruby_tests]#, :qunit] 
 
 task :dependencies do
 	sh "bundle install"
@@ -26,7 +26,7 @@ task :commit do
 	commit_message = ENV["m"] || 'no commit message'
 	git = GitRepository.new
 	git.add
-	git.commit(:message => 'dashboard commit')
+	git.commit(:message => 'dashboard_commit')
 	git.push	
 end
 
