@@ -5,17 +5,17 @@ task :dependencies do
 end
 
 task :unit_tests do
-	Dir["./tests/**/*.rb"].each do | file |
+	require 'peach'
+	Dir["./tests/**/*.rb"].peach do | file |
 		sh "ruby #{file}"
 	end
 end
 
 task :commit do
-	require 'git_repository'
-	commit_message = ENV["m"] || 'no commit message'
+	require 'git_repository'	
 	git = GitRepository.new
 	git.add
-	git.commit(:message => 'commit_message')
+	git.commit(:message => 'dashboard commit')
 	git.push	
 end
 
