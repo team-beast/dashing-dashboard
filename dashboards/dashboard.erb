@@ -26,15 +26,31 @@ Dashing.gridsterLayout('[{"col":1,"row":1},{"col":5,"row":1},{"col":6,"row":3},{
       </div>
     </li>
 
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-  <div data-id="weather" data-view="Weather"></div>
-  </li>
+    <li class="flips" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+        <div class="hidden" data-id="weather" data-view="Weather"></div>
+        <div data-id="news" data-view="News" style="background-color:#ff9618;">hello</div>
+    </li>
 
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="twitter_mentions" data-view="Comments" style="background-color:#ff9618;" data-moreinfo="Tweets tagged with #lrteambeast"></div>
       <i class="icon-twitter icon-background"></i>
     </li>
-
   </ul>
 </div>
+
+<script src="lib/jquery-ui-1.10.2.custom.min.js"></script>
+<script src="lib/jquery.flip.min.js"></script>
+<script src="src/IntervalTimer.js"></script>
+<script src="src/beast-flipCell.js"></script>
+<script>
+  (function($){   
+    $('.flips').flipCell({
+      interval : 10000, 
+      direction: 'lr'
+    }); 
+  })(jQuery);
+</script>
+
+
+
 

@@ -1,0 +1,3 @@
+[submodule "tests/jscript/lib"]
+	path = tests/jscript/lib
+	url = https://github.com/iainjmitchell/phantomjs-and-qunit-lib.git
