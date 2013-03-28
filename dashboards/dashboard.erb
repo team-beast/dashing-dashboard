@@ -50,15 +50,16 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
 <script src="src/beast-flipCell.js"></script>
 <script src="src/Page.js"></script>
 <script src="src/KeepAlive.js"></script>
+<script src="src/JsonpRequest.js"></script>
+<script src="src/ServiceLayer.js"></script>
 <script>
   (function($){ 
     $(document).ready(function(){
+      var serviceLayer = new ServiceLayer(new JsonpRequestFactory());
       new KeepAlive({ 
         page: new Page(), 
-        timeInterval: 600000,
-        serviceLayer : {
-          wakeUp: function(){}
-        }
+        timeInterval: 1000,
+        serviceLayer : serviceLayer
       });
       $('.flips').flipCell({
         interval : 10000, 

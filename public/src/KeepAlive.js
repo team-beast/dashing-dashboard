@@ -5,8 +5,8 @@ var KeepAlive = function(options){
 	});	
 
 	function keepDashboardAwake(){
-		options.page.reload();
 		options.serviceLayer.wakeUp();
+		options.page.reload();		
 	}
 	
 };
