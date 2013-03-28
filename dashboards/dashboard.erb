@@ -58,7 +58,7 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
       var serviceLayer = new ServiceLayer(new JsonpRequestFactory());
       new KeepAlive({ 
         page: new Page(), 
-        timeInterval: 1000,
+        timeInterval: 600000,
         serviceLayer : serviceLayer
       });
       $('.flips').flipCell({
