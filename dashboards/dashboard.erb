@@ -53,11 +53,26 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
 <script>
   (function($){ 
     $(document).ready(function(){
-      new KeepAlive({ page: new Page(), timeInterval: 600000})
+      new KeepAlive({ 
+        page: new Page(), 
+        timeInterval: 600000,
+        serviceLayer : {
+          wakeUp: function(){}
+        }
+      });
       $('.flips').flipCell({
         interval : 10000, 
         direction: 'lr'
       }); 
+
+      // $.ajax({
+      //   url : "http://teambeastservices.herokuapp.com",
+      //   dataType : 'JSONP',
+      //   success : function(data){
+      //     console.log(data);
+      //   }
+
+      // })
     });
   })(jQuery);
 </script>
