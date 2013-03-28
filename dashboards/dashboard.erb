@@ -37,7 +37,7 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
     </li>
 
      <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-      <div data-id="broken_builds_push" data-view="List" data-unordered="true" data-title="Broken Builds" data-moreinfo="Broken Builds"></div>
+      <div data-id="broken_builds_push" data-view="List" data-unordered="true" data-title="Broken Builds"></div>
     </li>
 
 
@@ -48,15 +48,19 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
 <script src="lib/jquery.flip.min.js"></script>
 <script src="src/IntervalTimer.js"></script>
 <script src="src/beast-flipCell.js"></script>
+<script src="src/Page.js"></script>
+<script src="src/KeepAlive.js"></script>
 <script>
-  (function($){   
-    $('.flips').flipCell({
-      interval : 10000, 
-      direction: 'lr'
-    }); 
+  (function($){ 
+    $(document).ready(function(){
+      new KeepAlive({ page: new Page(), timeInterval: 600000})
+      $('.flips').flipCell({
+        interval : 10000, 
+        direction: 'lr'
+      }); 
+    });
   })(jQuery);
 </script>
-
 
 
 

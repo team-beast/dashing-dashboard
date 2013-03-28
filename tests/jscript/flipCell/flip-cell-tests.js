@@ -1,4 +1,6 @@
 (function(){
+	module("Flip Cell");
+
 	test("Interval Timer created for flip interval time", function(){
 		var flipInterval = 2000,
 			timerInterval;
