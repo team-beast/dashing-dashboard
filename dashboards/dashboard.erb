@@ -6,6 +6,8 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
 <% content_for(:title) { "Customer Managment & Corporate" } %>
 <div class="gridster">
   <ul> 
+
+
     <li data-row="1" data-col="1" data-sizex="4" data-sizey="1">
       <div data-id="godashboard"  data-title="GoDash" style="background-color:#ff9618; height: 250px; padding: 55px 5px;">
         <iframe src="http://godashboard.laterooms.com/?profileName=TeamBeast"></iframe> 
@@ -37,7 +39,7 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
     </li>
 
      <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-      <div data-id="broken_builds_push" data-view="List" data-unordered="true" data-title="Broken Builds"></div>
+      <div data-id="broken_builds_push" data-view="Builds" data-unordered="true" data-title="Build Status"></div>
     </li>
 
 
@@ -65,15 +67,6 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":5,"row":2},{
         interval : 10000, 
         direction: 'lr'
       }); 
-
-      // $.ajax({
-      //   url : "http://teambeastservices.herokuapp.com",
-      //   dataType : 'JSONP',
-      //   success : function(data){
-      //     console.log(data);
-      //   }
-
-      // })
     });
   })(jQuery);
 </script>
