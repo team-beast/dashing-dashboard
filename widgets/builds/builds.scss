@@ -14,10 +14,12 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
 .widget-builds {
 
   background-color: $background-color;
-  vertical-align: top;
+  vertical-align: baseline !important;
 
   .title {
+    
     color: $title-color;
+
   }
 
   ol, ul {
