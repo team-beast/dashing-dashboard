@@ -17,6 +17,7 @@ GEM
       sprockets
       thin
       thor
+    eventmachine (1.0.3)
     eventmachine (1.0.3-x86-mingw32)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -72,6 +73,7 @@ PLATFORMS
 
 DEPENDENCIES
   dashing
+  eventmachine
   git_repository
   leankitkanban
   nokogiri
