@@ -24,6 +24,7 @@ end
 def get_phantom_exe
 	phantom_exe = 'phantomjs'
 	phantom_exe = "#{phantom_exe}_win.exe" if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/	
+	phantom_exe
 end
 
 task :commit do
