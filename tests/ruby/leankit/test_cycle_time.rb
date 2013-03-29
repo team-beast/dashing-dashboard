@@ -45,10 +45,10 @@ class TestCycleTime < Test::Unit::TestCase
 		LeanKitKanban::Config.password = "Forest66"
 		LeanKitKanban::Config.url = "lrtest.leankit.com"
 
-    card_history = get_card_history(1)[0]
+    # card_history = get_card_history(1)[0]
 
-    moved_history = card_history.select { |item| item.key? "FromLaneId" }
-
+    # moved_history = card_history.select { |item| item.key? "FromLaneId" }
+    get_card_cycle_time(1)
 
 
 		# File.open("output.txt", "w+") do |file|
@@ -56,9 +56,31 @@ class TestCycleTime < Test::Unit::TestCase
   #   end
 	end
 
+  def get_card_cycle_time(external_id)
+    card_history = get_card_history(external_id)
+    move_history = card_history.select { |item| item.key? "FromLaneId" }
+    start_move = move_history.select {|item | item['ToLaneTitle'] == 'Development: In Progress'}[0]
+    end_move = move_history.select { |item| item['ToLaneTitle'] == 'Release: Live'}[0]
+    start_date = DateTime.parse(start_move["DateTime"][/[^\s]+/])
+    end_date = DateTime.parse(end_move["DateTime"][/[^\s]+/])
+    p CardCycle.new(time_period: end_date - start_date, end_date: end_date)
+  end
+
+
+
   def get_card_history(external_id)
     card = LeanKitKanban::Card.find_by_external_id(BOARD_ID, external_id)[0][0]
     card_id = card["Id"]
-    history = LeanKitKanban::Card.get_card_history(BOARD_ID, card_id)
+    history = LeanKitKanban::Card.get_card_history(BOARD_ID, card_id)[0]
   end
 end
+
+class CardCycle
+  attr_reader :time_period, :end_date
+
+  def initialize(values)
+    @time_period = values[:time_period]
+    @end_date = values[:end_date]
+  end
+end
+
