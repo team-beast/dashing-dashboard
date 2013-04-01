@@ -1,5 +1,8 @@
 require 'test/unit'
 require 'leankitkanban'
+require_relative "../../../src/leankit/CardCycleTime.rb"
+require_relative "../../../src/leankit/CardCycleHistory.rb"
+
 
 module LeanKitKanban
   module Config
@@ -114,24 +117,6 @@ module LeanKit
     end
   end
 
-
-  class CardCycleTimeFactory
-    def initialize(board_id)
-      @cycle_time_calculator = CycleTimeCalculator.new
-      @card_cycle_history_factory = CardCycleHistoryFactory.new(
-        CardTransitionHistoryRespository.new(
-          CardHistoryRespository.new(board_id)))
-    end
-
-    def create(card_id)
-      card_cycle_history = @card_cycle_history_factory.create(card_id)
-      cycle_time = @cycle_time_calculator.calculate(
-        card_cycle_history.start_cycle_date_time, 
-        card_cycle_history.end_cycle_date_time)
-      LeanKit::CardCycleTime.new(time_period: cycle_time, end_date: card_cycle_history.end_cycle_date_time)
-    end
-  end 
-
   class CardCycleHistoryFactory
     START_CYCLE_LANE = 'Development: In Progress'
     END_CYCLE_LANE = 'Release: Live'
@@ -178,15 +163,6 @@ module LeanKit
     end
   end
 
-  class CardCycleHistory
-    attr_reader :start_cycle_date_time, :end_cycle_date_time
-
-    def initialize(values)
-      @start_cycle_date_time = values[:start_cycle_date_time]
-      @end_cycle_date_time = values[:end_cycle_date_time]
-    end
-  end
-
   class DateTimeFromLeanKitFactory
     LEANKIT_DATETIME_FORMAT = "%d/%m/%Y at %l:%M:%S %p"
 
@@ -221,15 +197,6 @@ module LeanKit
     def get(card_id)
       card_history = @card_history_respository.get(card_id)
       card_transistion_history = card_history.select { |card_history_item| card_history_item.key? CARD_TRANSISITION_KEY_NAME }
-    end
-  end
-
-  class CardCycleTime
-    attr_reader :time_period, :end_date
-
-    def initialize(values)
-      @time_period = values[:time_period]
-      @end_date = values[:end_date]
     end
   end
 end
