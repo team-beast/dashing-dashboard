@@ -1,49 +1,10 @@
 require 'test/unit'
 require 'leankitkanban'
 require_relative '../../../src/leankit/leankit.rb'
-require_relative "../../../src/leankit/CardCycleTime.rb"
-require_relative "../../../src/leankit/CardCycleHistory.rb"
-
-
-module LeanKitKanban
-  module Config
-    class NoCredentials < StandardError; end
-    class NoAccount < StandardError; end
-
-    class << self
-      attr_accessor :email, :password, :url      
-      
-      def validate
-        raise NoCredentials if email.nil? || password.nil?        
-      end
-
-      def uri
-        validate
-        "http://#{@url}#{API_SUFFIX}"
-      end
-
-      def basic_auth_hash
-        validate
-        {:basic_auth => {:username => email, :password => password}}
-      end
-    end
-  end
-end
-
-module LeanKitKanban
-  module Card
-    CARD_HISTORY = "/Card/History/{boardID}/{cardID}"
-
-    def self.get_card_history(board_id, card_id)
-      api_call = CARD_HISTORY.gsub("{boardID}", board_id.to_s).gsub("{cardID}", card_id.to_s)
-      get(api_call)
-    end
-  end
-end
-
-BOARD_ID = 32404545
 
 class TestCycleTime < Test::Unit::TestCase
+  BOARD_ID = 32404545
+
 	def test_kanban_calculate_cycle_time
     p LeanKit::KanbanBoard.new(BOARD_ID, TestCycleRange.new).calculate_cycle_time
 	end
@@ -89,100 +50,11 @@ module LeanKit
     end
   end
 
-  class ArchivedCardsRepository
-    def initialize(board_id)
-      @board_id = board_id
-    end
-
-    def get
-      archive = get_archive_live_cards + get_archive_waste_cards
-    end
-
-    private
-    def get_archive_live_cards
-      LeanKitKanban::Archive.fetch(@board_id)[0][0]['ChildLanes'][0]['Lane']['Cards']
-    end
-
-    def get_archive_waste_cards
-      LeanKitKanban::Archive.fetch(@board_id)[0][0]['ChildLanes'][1]['Lane']['Cards']
-    end
-  end
-
-  class InLastNinetyDaysSpecification
-    def initialize
-      @ninety_days_ago = DateTime.now - 90
-    end
-
-    def is_satisfied_by(date_time)
-      date_time >= @ninety_days_ago
-    end
-  end
+  
 
   
 
-  class TransitionDateTimeMapper
-    DATE_TIME_KEY = 'DateTime'
-    DESTINATION_LANE_KEY = 'ToLaneTitle'
-    START_CYCLE_LANE = 'Development: In Progress'
-    END_CYCLE_LANE = 'Release: Live'
 
-    def initialize(date_time_adapter)
-      @date_time_adapter = date_time_adapter
-    end
-
-    def map_start_from(card_transistion_history)
-      transition = get_transition_to(START_CYCLE_LANE, card_transistion_history)
-      transition = card_transistion_history[0] if transition.nil?
-      transition_date_time = @date_time_adapter.create(transition[DATE_TIME_KEY])
-    end
-
-    def map_end_from(card_transistion_history)
-      transition = get_transition_to(END_CYCLE_LANE, card_transistion_history)
-      transition = card_transistion_history[card_transistion_history.length-1] if transition.nil?
-      transition_date_time = @date_time_adapter.create(transition[DATE_TIME_KEY])
-    end
-
-    private
-    def get_transition_to(to_lane_title, card_transistion_history)
-      card_transistion_history.select {|card_transistion_history_item | card_transistion_history_item[DESTINATION_LANE_KEY] == to_lane_title}[0]
-    end
-  end
-
-  class DateTimeFromLeanKitFactory
-    LEANKIT_DATETIME_FORMAT = "%d/%m/%Y at %l:%M:%S %p"
-
-    def create(leankit_date_time)
-      DateTime.strptime(leankit_date_time, LEANKIT_DATETIME_FORMAT)
-    end
-  end
-
-  class CycleTimeCalculator
-    def calculate(start_date, end_date)
-      (end_date - start_date).to_f
-    end
-  end
-
-  class CardHistoryRespository
-    def initialize(board_id)
-      @board_id = board_id
-    end
-
-    def get(card_id)
-      LeanKitKanban::Card.get_card_history(@board_id, card_id)[0]
-    end
-  end
-
-  class CardTransitionHistoryRespository
-    CARD_TRANSISITION_KEY_NAME = "FromLaneId" 
-
-    def initialize(card_history_respository)
-      @card_history_respository = card_history_respository
-    end
-
-    def get(card_id)
-      card_history = @card_history_respository.get(card_id)
-      card_transistion_history = card_history.select { |card_history_item| card_history_item.key? CARD_TRANSISITION_KEY_NAME }
-    end
-  end
+  
 end
 
