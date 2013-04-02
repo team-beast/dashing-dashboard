@@ -16,6 +16,9 @@ $tick-color:        rgba(0, 0, 0, 0.4);
   background-color: $background-color;
   position: relative;
 
+  h4 {
+    font-weight: normal;
+  }
 
   svg {
     position: absolute;
