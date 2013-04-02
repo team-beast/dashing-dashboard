@@ -1,20 +1,15 @@
 <script type='text/javascript'>
 $(function() {
-Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":4,"row":1},{"col":5,"row":1},{"col":1,"row":1}]')
+Dashing.gridsterLayout('[{"col":1,"row":3},{"col":1,"row":1},{"col":2,"row":1},{"col":1,"row":2},{"col":3,"row":1}]')
 });
 </script>
 <% content_for(:title) { "Customer Managment & Corporate" } %>
 <div class="gridster">
   <ul> 
-
-
     <li data-row="1" data-col="1" data-sizex="4" data-sizey="1">
       <div data-id="godashboard"  data-title="GoDash" style="background-color:#261144; height: 250px; padding: 55px 5px;">
         <iframe src="http://godashboard.laterooms.com/?profileName=TeamBeast"></iframe> 
       </div>
-    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-      <div data-id="welcome" data-view="Text" data-title="Hello" style="background-color:#088A08;" data-text="Team Beast" data-moreinfo="Where is Seb????"></div>
     </li>
     <li class="flips" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
         <div class="hidden" data-id="weather" data-view="Weather"></div>
@@ -30,6 +25,9 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":3,"row":1},{"col":4,"row":1},{
       <div data-id="broken_builds_push" data-view="Builds" data-unordered="true" data-title="Build Status"></div>
     </li>
 
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
+      <div data-id="cycletime" data-view="Graph" data-title="Cycle Time" style="background-color:#47bbb3;" ></div>
+    </li>
 
   </ul>
 </div>
