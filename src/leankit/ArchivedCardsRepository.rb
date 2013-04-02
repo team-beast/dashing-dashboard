@@ -10,7 +10,7 @@ module LeanKit
 
 	    private
 	    def get_archive_live_cards
-	      LeanKitKanban::Archive.fetch(@board_id)[0][0]['ChildLanes'][0]['Lane']['Cards']
+	      LeanKitKanban::Archive.fetch(@board_id)[0][0]['ChildLanes'][0]['Lane']['Cards']	      
 	    end
 
 	    def get_archive_waste_cards
