@@ -1,3 +1,4 @@
+require 'leankitkanban'
 require_relative 'LeanKitKanbanExtension'
 require_relative 'CardCycleTime'
 require_relative 'CardCycleHistory'

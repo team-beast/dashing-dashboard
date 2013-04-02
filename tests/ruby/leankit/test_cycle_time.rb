@@ -1,5 +1,4 @@
 require 'test/unit'
-require 'leankitkanban'
 require_relative '../../../src/leankit/leankit.rb'
 
 class TestCycleTime < Test::Unit::TestCase
