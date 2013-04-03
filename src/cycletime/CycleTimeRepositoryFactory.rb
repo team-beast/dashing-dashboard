@@ -1,4 +1,6 @@
+require_relative "../redis/RedisWrapper"
 require_relative 'CycleTimeRepository'
+
 module CycleTime
 	class CycleTimeRepositoryFactory
 		def initialize(is_production_specification)

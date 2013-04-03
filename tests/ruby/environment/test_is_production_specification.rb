@@ -8,6 +8,7 @@ class TestIsProductionSpecification < Test::Unit::TestCase
 	end	
 
 	def test_when_rack_env_is_not_specified_Then_is_not_production_satisfied
+		ENV["RACK_ENV"] = nil
 		assert_equal(false, Environment::IsProductionSpecification.new.satisified?)
 	end	
 end
