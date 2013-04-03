@@ -1,4 +1,4 @@
-
+require_relative 'CycleTimeRepository'
 module CycleTime
 	class CycleTimeRepositoryFactory
 		def initialize(is_production_specification)
@@ -11,8 +11,7 @@ module CycleTime
 		end
 	end
 
-	class CycleTimeRepository
-	end
+	
 
 	class InMemoryCycleTimeRepository
 	end
