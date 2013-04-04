@@ -22,20 +22,22 @@ class Dashing.Cycletime extends Dashing.Widget
         }
       ]
     )
-
-    @graph.series[0].data = @get('points') if @get('points')    
     y_axis = new Rickshaw.Graph.Axis.Y(
       graph: @graph, 
       tickFormat: Rickshaw.Fixtures.Number.formatKMBT)
-    @graph.render()  
-    this.getMax [{y:5}, {y:3}]
+
+    points = @get('points') if @get('points')
+    this.renderPoints points
 
   onData: (data) ->
     if @graph
-      @graph.series[0].data = data.points
-      maxY = this.getMax(data.points) * 1.5
-      @graph.max = maxY
-      @graph.render()     
+      this.renderPoints data.points
+
+  renderPoints: (points) ->
+    @graph.series[0].data = points
+    maxY = this.getMax(points) * 1.5
+    @graph.max = maxY
+    @graph.render()   
 
   getMax: (data) ->
     heights = data.map (point) -> point.y    
