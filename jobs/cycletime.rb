@@ -15,7 +15,7 @@ class CycleTimeScheduler
 	end
 
 	def show_cycle_time(cycle_time)
-  		rounded_cycle_time = cycle_time.round(2)
+  		rounded_cycle_time = cycle_time.round(2) + rand(5)
   		@cycle_time_repository.add(rounded_cycle_time)
   		points = @cycle_time_repository.get
   		send_event('cycletime', points: points)
