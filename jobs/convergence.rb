@@ -1,6 +1,6 @@
 points = []
 (1..10).each do |i|
-  points << { x: i, y: rand(50) }
+  points << { x: i, y: 50 }
 end
 last_x = points.last[:x]
 

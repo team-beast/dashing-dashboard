@@ -6,7 +6,6 @@ class CycleTimeScheduler
 
 	def initialize
 		@cycle_time_repository = CycleTime::CycleTimeRepository.new
-		@last_x = 0
 	end
 
 	def start
@@ -16,12 +15,10 @@ class CycleTimeScheduler
 	end
 
 	def show_cycle_time(cycle_time)
-  		@last_x += 1
   		rounded_cycle_time = cycle_time.round(2)
   		@cycle_time_repository.add(rounded_cycle_time)
-  		@points = @cycle_time_repository.get
-  		puts @points
-  		send_event('cycletime', points: @points)
+  		points = @cycle_time_repository.get
+  		send_event('cycletime', points: points)
 	end
 end
 
