@@ -15,8 +15,9 @@ module CycleTime
 			end
 		end
 
-		def add(value)
-			@cycle_times.push(value.to_json)
+		def add(cycle_time)
+			graph_coordinate = {:x => @cycle_times.length, :y => cycle_time}
+			@cycle_times.push(graph_coordinate.to_json)
 			@redis_wrapper.set(:key => REDIS_KEY, :value => generate_redis_string)
 		end
 

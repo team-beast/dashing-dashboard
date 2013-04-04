@@ -13,26 +13,26 @@ class TestCycleTimeRepository < Test::Unit::TestCase
 	end
 
 	def test_that_when_redis_has_contents_and_item_added_Then_redis_set_with_correct_json_string
-		item = {:x => 1, :y => 2}
-		item2 = {:x => 2, :y => 2}
-		redis_contents = {:x => 1, :y => 2}.to_json
-		expected_result = "#{redis_contents} , #{item.to_json} , #{item2.to_json}" 
+		cycle_time =  2
+		cycle_time_2 = 2
+		redis_contents = {:x => 0, :y => 2}.to_json
+		expected_result = "#{redis_contents} , #{{:x => 1, :y => cycle_time}.to_json} , #{{:x => 2, :y => cycle_time_2}.to_json}" 
 		redis_wrapper = MockRedisWraper.new(redis_contents)
 		cycle_time_repository = CycleTime::CycleTimeRepository.new(:redis_wrapper => redis_wrapper)
-		cycle_time_repository.add(item)
-		cycle_time_repository.add(item2)
+		cycle_time_repository.add(cycle_time)
+		cycle_time_repository.add(cycle_time_2)
 		assert_equal(expected_result , redis_wrapper.redis_contents )
 	end
 
 	def test_that_when_redis_has_contents_and_item_added_Then_get_returns_correct_value
-		item = {:x => 1, :y => 2}
-		item2 = {:x => 2, :y => 2}
-		redis_contents = item.to_json
-		expected_result = [item,item,item2]
+		cycle_time =  2
+		cycle_time_2 = 2
+		redis_contents = {:x => 0, :y => 2}.to_json
+		expected_result = [{:x=>0,:y=>2},{:x=>1, :y=>cycle_time},{:x=>2,:y=>cycle_time_2}]
 		redis_wrapper = MockRedisWraper.new(redis_contents)
 		cycle_time_repository = CycleTime::CycleTimeRepository.new(:redis_wrapper => redis_wrapper)
-		cycle_time_repository.add(item)
-		cycle_time_repository.add(item2)
+		cycle_time_repository.add(cycle_time)
+		cycle_time_repository.add(cycle_time_2)
 		result = cycle_time_repository.get
 		assert_equal(expected_result, result )
 	end
