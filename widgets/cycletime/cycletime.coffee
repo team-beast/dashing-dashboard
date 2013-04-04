@@ -15,16 +15,16 @@ class Dashing.Cycletime extends Dashing.Widget
       element: @node
       width: width
       height: height
+      renderer: 'line'
       series: [
         {
-        color: "#fff",
+        color: "#ffff00",
         data: [{x:0, y:0}]
         }
       ]
     )
 
-    @graph.series[0].data = @get('points') if @get('points')
-    # x_axis = new Rickshaw.Graph.Axis.Time(graph: @graph, timeUnit: days)
+    @graph.series[0].data = @get('points') if @get('points')    
     y_axis = new Rickshaw.Graph.Axis.Y(graph: @graph, tickFormat: Rickshaw.Fixtures.Number.formatKMBT)
     @graph.render()       
 
