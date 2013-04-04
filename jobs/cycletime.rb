@@ -1,10 +1,11 @@
 require_relative '../src/leankit/leankit.rb'
+require_relative '../src/cycletime/CycleTimeRepository'
 
 class CycleTimeScheduler
 	BOARD_ID = 32404545
 
 	def initialize
-		@points = []
+		@cycle_time_repository = CycleTime::CycleTimeRepository.new
 		@last_x = 0
 	end
 
@@ -15,10 +16,12 @@ class CycleTimeScheduler
 	end
 
 	def show_cycle_time(cycle_time)
-		@points.shift if @points.length == 84
+		#@points.shift if @points.length == 84
   		@last_x += 1
   		rounded_cycle_time = cycle_time.round(2)
-  		@points << { x: @last_x, y: rounded_cycle_time }
+  		@cycle_time_repository.add({ x: @last_x, y: rounded_cycle_time })
+  		@points = @cycle_time_repository.get#<< { x: @last_x, y: rounded_cycle_time }
+  		puts @points
   		send_event('cycletime', points: @points)
 	end
 end

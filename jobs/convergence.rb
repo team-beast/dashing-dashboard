@@ -1,5 +1,12 @@
-require 'redis'
-redis = Redis.new(:host =>"spinyfin.redistogo.com", :port => 9166, :password =>"37045748b4fa9b608e7851f215d06d42")
+points = []
+(1..10).each do |i|
+  points << { x: i, y: rand(50) }
+end
+last_x = points.last[:x]
+
 SCHEDULER.every '2s' do
-puts redis.get("cycle_times")
+  points.shift
+  last_x += 1
+  points << { x: last_x, y: rand(50) }
+  send_event('convergence', points: points)
 end
