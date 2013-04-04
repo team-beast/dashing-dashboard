@@ -16,6 +16,7 @@ module CycleTime
 		end
 
 		def add(cycle_time)
+			@cycle_times.shift if @cycle_times.length >= 84
 			graph_coordinate = {:x => @cycle_times.length, :y => cycle_time}
 			@cycle_times.push(graph_coordinate.to_json)
 			@redis_wrapper.set(:key => REDIS_KEY, :value => generate_redis_string)

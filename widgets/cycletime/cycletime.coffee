@@ -24,7 +24,9 @@ class Dashing.Cycletime extends Dashing.Widget
     )
 
     @graph.series[0].data = @get('points') if @get('points')    
-    y_axis = new Rickshaw.Graph.Axis.Y(graph: @graph, tickFormat: Rickshaw.Fixtures.Number.formatKMBT)
+    y_axis = new Rickshaw.Graph.Axis.Y(
+      graph: @graph, 
+      tickFormat: Rickshaw.Fixtures.Number.formatKMBT)
     @graph.render()  
     this.getMax [{y:5}, {y:3}]
 
