@@ -35,7 +35,7 @@ class Dashing.Cycletime extends Dashing.Widget
 
   renderPoints: (points) ->
     @graph.series[0].data = points
-    maxY = this.getMax(points) * 1.5
+    maxY = this.getMax(points) * 2
     @graph.max = maxY
     @graph.render()   
 

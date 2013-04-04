@@ -28,7 +28,8 @@ module CycleTime
 			@json_cycle_times.shift if @json_cycle_times.length >= 84			
 		end
 
-		def generate_next_x_value
+		def generate_next_x_value		
+			return 0 if @json_cycle_times.length == 0	
 			last_cycle_time = cycle_time_from(@json_cycle_times.last)
 			last_cycle_time[:x]+1
 		end
@@ -37,7 +38,7 @@ module CycleTime
 			return "#{@json_cycle_times.join(" , ")}"
 		end
 
-		def cycle_time_from(json_string)
+		def cycle_time_from(json_string)			
 			JSON.parse(json_string, :symbolize_names => true)
 		end
 	end
