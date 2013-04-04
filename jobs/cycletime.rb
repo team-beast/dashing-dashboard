@@ -16,15 +16,17 @@ class CycleTimeScheduler
 	end
 
 	def show_cycle_time(cycle_time)
-		#@points.shift if @points.length == 84
   		@last_x += 1
   		rounded_cycle_time = cycle_time.round(2)
   		@cycle_time_repository.add({ x: @last_x, y: rounded_cycle_time })
-  		@points = @cycle_time_repository.get#<< { x: @last_x, y: rounded_cycle_time }
-  		puts @points
+  		@points =  [{:x =>1, :y=>5},
+  		{:x =>2, :y=>5},{:x =>3, :y=>5},
+  		{:x =>4, :y=>5},{:x =>5, :y=>5},{:x =>6, :y=>5},
+  		{:x =>7, :y=>5},{:x =>8, :y=>5},{:x =>9, :y=>5},
+  		{:x =>10, :y=>5},{:x =>11, :y=>5}]#@cycle_time_repository.get
   		send_event('cycletime', points: @points)
 	end
 end
 
 cycle_time_scheduler = CycleTimeScheduler.new()
-cycle_time_scheduler.start
+cycle_time_scheduler.show_cycle_time(4)
