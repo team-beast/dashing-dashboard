@@ -7,28 +7,38 @@ class Dashing.Cycletime extends Dashing.Widget
       points[points.length - 1].y
 
   ready: ->    
-    container = $(@node).parent()
-    # Gross hacks. Let's fix this.
+    container = $(@node).parent()    
     width = (Dashing.widget_base_dimensions[0] * container.data("sizex")) + Dashing.widget_margins[0] * 2 * (container.data("sizex") - 1)
     height = (Dashing.widget_base_dimensions[1] * container.data("sizey"))
     @graph = new Rickshaw.Graph(
       element: @node
       width: width
       height: height
+      renderer: 'line'
       series: [
         {
-        color: "#fff",
+        color: "#00ff00",
         data: [{x:0, y:0}]
         }
       ]
     )
+    y_axis = new Rickshaw.Graph.Axis.Y(
+      graph: @graph, 
+      tickFormat: Rickshaw.Fixtures.Number.formatKMBT)
 
-    @graph.series[0].data = @get('points') if @get('points')
-    # x_axis = new Rickshaw.Graph.Axis.Time(graph: @graph, timeUnit: days)
-    y_axis = new Rickshaw.Graph.Axis.Y(graph: @graph, tickFormat: Rickshaw.Fixtures.Number.formatKMBT)
-    @graph.render()       
+    points = @get('points') if @get('points')
+    this.renderPoints points
 
   onData: (data) ->
     if @graph
-      @graph.series[0].data = data.points
-      @graph.render()     
+      this.renderPoints data.points
+
+  renderPoints: (points) ->
+    @graph.series[0].data = points
+    maxY = this.getMax(points) * 2
+    @graph.max = maxY
+    @graph.render()   
+
+  getMax: (data) ->
+    heights = data.map (point) -> point.y    
+    Math.max.apply null, heights
