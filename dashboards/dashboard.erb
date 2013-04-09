@@ -1,8 +1,8 @@
 <script type='text/javascript'>
 $(function() {
-Dashing.gridsterLayout('[{"col":1,"row":2},{"col":5,"row":1},{"col":4,"row":1},{"col":2,"row":1},{"col":1,"row":1}]')
+Dashing.gridsterLayout('[{"col":1,"row":3},{"col":2,"row":2},{"col":3,"row":2},{"col":1,"row":1},{"col":3,"row":1},{"col":4,"row":2}]')
 });
-</script> 
+</script>
 <% content_for(:title) { "Customer Managment & Corporate" } %>
 <div class="gridster">
   <ul> 
@@ -22,7 +22,11 @@ Dashing.gridsterLayout('[{"col":1,"row":2},{"col":5,"row":1},{"col":4,"row":1},{
     </li>
 
      <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-      <div data-id="broken_builds_push" data-view="Builds" data-unordered="true" data-title="Build Status"></div>
+      <div data-id="broken_builds_push" data-view="Builds" data-unordered="true" data-title="Broken Builds"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+      <div data-id="building_builds_push" data-view="Builds" data-unordered="true" data-title="Running Builds"></div>
     </li>
 
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">

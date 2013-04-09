@@ -1,7 +1,8 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #DF0101;
+$broken:            #DF0101;
+$building:          #DBD149;
 $value-color:       #fff;
 
 $title-color:       rgba(255, 255, 255, 1);
@@ -11,15 +12,14 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
 // ----------------------------------------------------------------------------
 // Widget-list styles
 // ----------------------------------------------------------------------------
-.widget-builds {
 
-  background-color: $background-color;
+
+
+.widget-builds {        
   vertical-align: baseline !important;
 
-  .title {
-    
+  .title {    
     color: $title-color;
-
   }
 
   ol, ul {
@@ -60,3 +60,12 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
   }
 
 }
+
+  .broken_builds_push{
+    background-color: $broken;
+  }
+
+  .building_builds_push{
+    background-color: $building;
+  }
+
