@@ -18,9 +18,7 @@ class CycleTimeScheduler
   		rounded_cycle_time = cycle_time.round(2)
   		@cycle_time_repository.add(rounded_cycle_time)
   		points = @cycle_time_repository.get
-  		tweets =  [{ name: 'test', body: 'test', avatar: 'ss' }]
-  		send_event('twitter_mentions', comments: tweets)
-  		#send_event('cycletime', points: [{:x=>0, :y=>4.43}, {:x=>1, :y=>4.43}, {:x=>2, :y=>4.43}])
+  		send_event('cycletime', points: points])
 	end
 end
 
