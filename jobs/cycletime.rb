@@ -22,7 +22,7 @@ end
 
 cycle_time_scheduler = CycleTimeScheduler.new()
 
-SCHEDULER.every '10s', :first_in => 0 do
+SCHEDULER.every '120m', :first_in => 0 do
 	cycle_time_scheduler.start
 	send_event('cycletime', points: cycle_time_scheduler.points )
 end
