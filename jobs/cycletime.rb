@@ -9,7 +9,7 @@ class CycleTimeScheduler
 	end
 
 	def start
-		SCHEDULER.every '120m', :first_in => 0 do
+		SCHEDULER.every '10s', :first_in => 0 do
   			LeanKit::KanbanBoard.new(BOARD_ID, self).calculate_cycle_time
   		end  		
 	end
@@ -18,7 +18,8 @@ class CycleTimeScheduler
   		rounded_cycle_time = cycle_time.round(2)
   		@cycle_time_repository.add(rounded_cycle_time)
   		points = @cycle_time_repository.get
-  		send_event('cycletime', points: points)
+  		p points
+  		send_event('cycletime', points: [{:x=>0, :y=>4.43}, {:x=>1, :y=>4.43}, {:x=>2, :y=>4.43}])
 	end
 end
 
