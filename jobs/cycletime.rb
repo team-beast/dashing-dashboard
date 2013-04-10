@@ -9,31 +9,18 @@ class CycleTimeScheduler
 	end
 
 	def start
-		SCHEDULER.every '10s', :first_in => 0 do
-  	
-			show_cycle_time("s")
-  	#	LeanKit::KanbanBoard.new(BOARD_ID, self).calculate_cycle_time
+		SCHEDULER.every '120m', :first_in => 0 do
+  			LeanKit::KanbanBoard.new(BOARD_ID, self).calculate_cycle_time
   		end  		
 	end
 
 	def show_cycle_time(cycle_time)
-  		# rounded_cycle_time = cycle_time.round(2)
-  		# @cycle_time_repository.add(rounded_cycle_time)
-  		# points = @cycle_time_repository.get
-  		send_event('cycletime', points: [{x: 23,y:34}])
+  		rounded_cycle_time = cycle_time.round(2)
+  		@cycle_time_repository.add(rounded_cycle_time)
+  		points = @cycle_time_repository.get
+  		send_event('cycletime', points: points)
 	end
 end
 
-# cycle_time_scheduler = CycleTimeScheduler.new()
-# cycle_time_scheduler.start
-
-class ShowCycleTime
-		def show_cycle_time(cycle_time)
-  		# rounded_cycle_time = cycle_time.round(2)
-  		# @cycle_time_repository.add(rounded_cycle_time)
-  		# points = @cycle_time_repository.get
-  		send_event('cycletime', points: [{x: 23,y:34}])
-	end
-end
-
-LeanKit::KanbanBoard.new(32404545, ShowCycleTime.new).calculate_cycle_time
+cycle_time_scheduler = CycleTimeScheduler.new()
+cycle_time_scheduler.start
