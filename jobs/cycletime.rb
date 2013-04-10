@@ -2,26 +2,27 @@ require_relative '../src/leankit/leankit.rb'
 require_relative '../src/cycletime/CycleTimeRepository'
 
 class CycleTimeScheduler
-	require 'dashing'
 	BOARD_ID = 32404545
-
+	attr_reader :points
 	def initialize
 		@cycle_time_repository = CycleTime::CycleTimeRepository.new
 	end
 
 	def start
-		SCHEDULER.every '10s', :first_in => 0 do
   			LeanKit::KanbanBoard.new(BOARD_ID, self).calculate_cycle_time
-  		end  		
 	end
 
 	def show_cycle_time(cycle_time)
   		rounded_cycle_time = cycle_time.round(2)
   		@cycle_time_repository.add(rounded_cycle_time)
-  		points = @cycle_time_repository.get
-  		send_event('cycletime', points: points)
+  		@points = @cycle_time_repository.get
+  		
 	end
 end
 
 cycle_time_scheduler = CycleTimeScheduler.new()
-cycle_time_scheduler.start
+
+SCHEDULER.every '10s', :first_in => 0 do
+	cycle_time_scheduler.start
+	send_event('cycletime', points: cycle_time_scheduler.points )
+end
