@@ -10,7 +10,9 @@ class CycleTimeScheduler
 
 	def start
 		SCHEDULER.every '10s', :first_in => 0 do
-  		#	LeanKit::KanbanBoard.new(BOARD_ID, self).calculate_cycle_time
+  	
+			show_cycle_time("s")
+  	#	LeanKit::KanbanBoard.new(BOARD_ID, self).calculate_cycle_time
   		end  		
 	end
 
