@@ -24,5 +24,16 @@ class CycleTimeScheduler
 	end
 end
 
-cycle_time_scheduler = CycleTimeScheduler.new()
-cycle_time_scheduler.start
+# cycle_time_scheduler = CycleTimeScheduler.new()
+# cycle_time_scheduler.start
+
+class ShowCycleTime
+		def show_cycle_time(cycle_time)
+  		# rounded_cycle_time = cycle_time.round(2)
+  		# @cycle_time_repository.add(rounded_cycle_time)
+  		# points = @cycle_time_repository.get
+  		send_event('cycletime', points: [{x: 23,y:34}])
+	end
+end
+
+LeanKit::KanbanBoard.new(32404545, ShowCycleTime.new).calculate_cycle_time
