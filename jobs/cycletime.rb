@@ -2,6 +2,7 @@ require_relative '../src/leankit/leankit.rb'
 require_relative '../src/cycletime/CycleTimeRepository'
 
 class CycleTimeScheduler
+	require 'dashing'
 	BOARD_ID = 32404545
 
 	def initialize
