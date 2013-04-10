@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #ff9618;
+$background-color:  #F0F8FF;
 $value-color:       #fff;
  
-$title-color:       rgba(255, 255, 255, 0.7);;
+$text-color:       rgba(0, 0, 0, 1);;
 $moreinfo-color:    rgba(255, 255, 255, 0.7);;
  
 // ----------------------------------------------------------------------------
@@ -18,7 +18,9 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);;
   .headline-container {
     display: none;
   }
-
+  .title {
+    color: $text-color;
+  }
   .heading span {
     color: black;
   }
@@ -29,6 +31,7 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);;
 
   .description {
   	font-size: 0.8em;
+    color: $text-color;
   }
 
   .heading{

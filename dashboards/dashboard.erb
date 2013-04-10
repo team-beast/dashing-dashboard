@@ -1,37 +1,31 @@
-<script type='text/javascript'>
-$(function() {
-Dashing.gridsterLayout('[{"col":1,"row":3},{"col":3,"row":2},{"col":2,"row":2},{"col":1,"row":1},{"col":3,"row":1},{"col":1,"row":2}]')
-});
-</script>
-
 <% content_for(:title) { "Customer Managment & Corporate" } %>
 <div class="gridster">
   <ul> 
-    <li data-row="1" data-col="1" data-sizex="4" data-sizey="1">
-      <div data-id="godashboard"  data-title="GoDash" style="background-color:#261144; height: 250px; padding: 55px 5px;">
-        <iframe src="http://godashboard.laterooms.com/?profileName=TeamBeast"></iframe> 
-      </div>
-    </li>
-    <li class="flips" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-        <div class="hidden" data-id="weather" data-view="Weather"></div>
-        <div data-id="news" data-view="News">hello</div>
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+      <div data-id="buidling_builds_push" data-view="Builds" data-unordered="true" data-title="Running Builds"></div>
     </li>
 
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-      <div data-id="twitter_mentions" data-view="Comments" data-moreinfo="Tweets tagged with #lrteambeast"></div>
-      <i class="icon-twitter icon-background"></i>
-    </li>
-
-     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+     <li data-row="1" data-col="2" data-sizex="2" data-sizey="1">
       <div data-id="broken_builds_push" data-view="Builds" data-unordered="true" data-title="Broken Builds"></div>
     </li>
 
-    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-      <div data-id="buidling_builds_push" data-view="Builds" data-unordered="true" data-title="Running Builds"></div>
 
-
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="cycletime" data-view="Cycletime" data-title="Cycle Time" ></div>
+    </li>
+
+    <li class="flips" data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+        <div class="hidden" data-id="weather" data-view="Weather"></div>
+        <div data-view="Clock"></div>
+    </li>
+
+    <li  data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+       <div data-id="news" data-view="News"></div>
+    </li>
+
+    <li data-row="2" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="twitter_mentions" data-view="Comments" data-moreinfo="Tweets tagged with #lrteambeast"></div>
+      <i class="icon-twitter icon-background"></i>
     </li>
 
   </ul>
