@@ -40,5 +40,5 @@ class Dashing.Cycletime extends Dashing.Widget
     @graph.render()   
 
   getMax: (data) ->
-    heights = data.map (point) -> point.y    
+    heights = data.map (point) -> point.y if data?
     Math.max.apply null, heights
