@@ -6,7 +6,7 @@
 			data1 = { items: [1,2,3]},
 			builds = new Builds(),
 			passedClass = "builds-passed",
-			brokenBuildsWidget = $("#broken_builds_push");
+			brokenBuildsWidget = $(".broken_builds_push");
 			
 		brokenBuildsWidget.addClass(passedClass);
 		builds.update(data0);
