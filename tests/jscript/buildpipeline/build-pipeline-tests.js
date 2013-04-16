@@ -11,7 +11,7 @@
 	});
 
 	test("When one failed build Then passed class not on status widget", function(){
-		var buildData = { items: [{last_build_status: "Failed"}]},
+		var buildData = { items: [{last_build_status: "Failure"}]},
 			passedClass = "builds-passed",
 			buildStatusWidget = $(".build_status");
 		buildStatusWidget.addClass(passedClass);
@@ -21,7 +21,7 @@
 
 	test("When one failed and one passed build, Then passed class not on build status widget", function(){
 		var buildData = { 
-				items: [{last_build_status: "Passed"}, {last_build_status: "Failed"}]
+				items: [{last_build_status: "Passed"}, {last_build_status: "Failure"}]
 			},
 			passedClass = "builds-passed",
 			buildStatusWidget = $(".build_status");

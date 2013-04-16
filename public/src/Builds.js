@@ -2,7 +2,7 @@
 	this.BuildStatus = function(){
 		var buildStatusWidget = $(".build_status"),
 			passedClass = "builds-passed",
-			BUILD_FAILED = 'Failed';
+			BUILD_FAILED = 'Failure';
 
 
 		function update(data){
