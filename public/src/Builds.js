@@ -1,21 +1,22 @@
-var Builds = function(){
-	var brokenBuildsWidget = $(".broken_builds_push"),
-		passedClass = "builds-passed";
+(function(){
+	this.BuildStatus = function(){
+		var buildStatusWidget = $(".build_status"),
+			passedClass = "builds-passed",
+			BUILD_FAILED = 'Failed';
 
 
-	function update(data){
-		//if items contains one or more broken builds
-		console.log("hello")
-		console.log(data.items)
-		if(data.items.length > 0){
-			brokenBuildsWidget.removeClass(passedClass)
-		}
-		else{
-			brokenBuildsWidget.addClass(passedClass);
+		function update(data){
+			var pipelineCount = 0;	
+			buildStatusWidget.addClass(passedClass);
+			for(pipelineCount; pipelineCount < data.items.length; pipelineCount++){
+				if (data.items[pipelineCount].last_build_status === BUILD_FAILED){
+					buildStatusWidget.removeClass(passedClass);
+				}
+			}		
+		};
+
+		return {
+			update : update
 		}
 	};
-
-	return {
-		update : update
-	}
-};
+})();

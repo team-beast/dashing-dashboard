@@ -2,6 +2,7 @@
 // Sass declarations
 // ----------------------------------------------------------------------------
 $broken:            #DF0101;
+$passed:            #4AA02C;
 $building:          #FF3800;
 $value-color:       #fff;
 
@@ -61,8 +62,12 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
 
 }
 
-  .broken_builds_push{
+  .build_status{
     background-color: $broken;
+  }
+
+  .builds-passed {
+    background-color: $passed;
   }
 
   .buidling_builds_push{
