@@ -4,6 +4,9 @@ var Builds = function(){
 
 
 	function update(data){
+		//if items contains one or more broken builds
+
+		console.log(data.items[0])
 		if(data.items.length > 0){
 			brokenBuildsWidget.removeClass(passedClass)
 		}
