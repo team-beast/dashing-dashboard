@@ -12,7 +12,12 @@
         <div id="initiallyShown"></div>
         <div id="initiallyHidden" class="hidden"></div>
         <div id="broken_builds_push"></div>
-        <div class="build_status"></div>
+        <div class="build_status">
+            <ul id="failed_builds">
+            </ul>
+            <ul id="running_builds">
+            </ul>
+        </div>
       </div>
     </div>
     <script src="./lib/qunit.js"></script>
@@ -27,5 +32,6 @@
     <script src="./keepAlive/keep-alive-tests.js"></script>
     <script src="./keepAlive/service-layer-tests.js"></script>
     <script src="./buildpipeline/build-pipeline-tests.js"></script>
+    <script src="./buildpipeline/pipelines-stage-element-factory-tests.js"></script>
   </body>
 </html>

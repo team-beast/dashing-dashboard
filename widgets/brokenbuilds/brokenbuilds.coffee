@@ -6,4 +6,4 @@ class Dashing.Brokenbuilds extends Dashing.Widget
 			q$(@node).find('ul').remove()
 			console.log("broken build ready")
 	onData: (data) =>
-		new BuildStatus().update(data)
+		new Builds.BuildStatus({}).update(data)

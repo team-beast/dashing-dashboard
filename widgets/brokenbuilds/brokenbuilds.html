@@ -1,12 +1,10 @@
 <h1 class="title" data-bind="title"></h1>
 
 <div>
-	<ul class="list-nostyle">
-	  <li data-foreach-item="items">
-	    <span class="label item.last_build_status" data-bind="item.pipeline_name"></span>
-	    <span class="value" data-bind="item.stage_name"></span>
-	  </li>
-</ul>
+	<ul id="failed_builds">
+	</ul>
+	<ul id="running_builds">
+	</ul>
 </div>
 
 <p class="more-info" data-bind="moreinfo"></p>
