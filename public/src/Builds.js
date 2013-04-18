@@ -48,6 +48,7 @@ var Builds = Builds || {};
 	}
 
 	module.BuildStatus = function(options){
+		console.log('hit');
 		var BUILD_FAILED = 'Failure',
 			PASSED_CLASS = "builds-passed",
 			FAILED_BUILDS_LIST_ID = "#failed_builds",
@@ -61,6 +62,7 @@ var Builds = Builds || {};
 			pipelineStageElementFactory = options.pipelineStageElementFactory;
 
 		function update(data){
+			console.log('update');
 			failedBuildsList.clear();
 			runningBuildsList.clear();
 			BUILD_STATUS_WIDGET.addClass(PASSED_CLASS);

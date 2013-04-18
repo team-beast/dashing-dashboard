@@ -1,4 +1,8 @@
 class Dashing.Brokenbuilds extends Dashing.Widget
+	constructor: ->
+		@buildStatus = new Builds.BuildStatus()
+		super
+
 	ready: ->
 		if @get('unordered')
 			$(@node).find('ol').remove()
@@ -6,4 +10,4 @@ class Dashing.Brokenbuilds extends Dashing.Widget
 			q$(@node).find('ul').remove()
 			console.log("broken build ready")
 	onData: (data) =>
-		new Builds.BuildStatus({}).update(data)
+		@buildStatus.update(data)
