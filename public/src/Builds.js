@@ -47,27 +47,24 @@ var Builds = Builds || {};
 		};
 	}
 
-	module.BuildStatus = function(options){
-		console.log('hit');
+	module.BuildStatus = function(options){		
 		var BUILD_FAILED = 'Failure',
 			PASSED_CLASS = "builds-passed",
-			FAILED_BUILDS_LIST_ID = "#failed_builds",
-			RUNNING_BUILDS_LIST_ID = "#running_builds",
 			BUILD_STATUS_WIDGET = $(".build_status"),
-			options = options || {failedBuildsList: new Builds.PipelinesList(FAILED_BUILDS_LIST_ID),
-								  runningBuildsList: new Builds.PipelinesList(RUNNING_BUILDS_LIST_ID),
-								  pipelineStageElementFactory: new Builds.PipelineStageElementFactory()}
 			failedBuildsList = options.failedBuildsList;
 			runningBuildsList = options.runningBuildsList;
 			pipelineStageElementFactory = options.pipelineStageElementFactory;
 
-		function update(data){
-			console.log('update');
+		function update(data){			
+			resetWidget();
+			addPipelinesToList(data.items);
+		};
+
+		function resetWidget(){
 			failedBuildsList.clear();
 			runningBuildsList.clear();
 			BUILD_STATUS_WIDGET.addClass(PASSED_CLASS);
-			addPipelinesToList(data.items);
-		};
+		}
 
 		function addPipelinesToList(pipelines){
 			var pipelineCount = 0;
