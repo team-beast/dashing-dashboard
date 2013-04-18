@@ -14,11 +14,16 @@
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
 			stubFailedElementTemplate = new StubFailedElementTemplate();
 			expectedResult = stubFailedElementTemplate.build(pipeline),
-			pipelineStageElementFactory = new Builds.PipelineStageElementFactory({failedElementTemplate: stubFailedElementTemplate,});
+			pipelineStageElementFactory = new Builds.PipelineStageElementFactory({failedElementTemplate: stubFailedElementTemplate});
 		result = pipelineStageElementFactory.create(pipeline);
 		equal(result,expectedResult);
 	});
 })();
+
+var StubListAdder = {
+	add : function(){},
+	clear: function(){}
+};
 
 var StubBuildingElementTemplate = function(){
 	function build(pipeline){

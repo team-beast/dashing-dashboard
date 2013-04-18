@@ -27,16 +27,22 @@ var Builds = Builds || {};
 		};
 	};
 
+	var FailedSpecification = {
+		isSatisfiedBy: function(pipeline){
+			return pipeline.status === 'Failure';
+		}
+	};
+
 	module.PipelineStageElementFactory = function(options){
-		BUILD_FAILED = 'Failure';
 		options = options || {}
 		buildingElementTemplate = options.buildingElementTemplate || BuildingElementTemplate;
 		failedElementTemplate = options.failedElementTemplate || FailedElementTemplate;
 
+
 		function create(pipeline){
 			var element = buildingElementTemplate.build(pipeline);
 
-			if(pipeline.status == BUILD_FAILED){
+			if(FailedSpecification.isSatisfiedBy(pipeline)){
 				element = failedElementTemplate.build(pipeline);
 			}
 			return element;
@@ -45,19 +51,52 @@ var Builds = Builds || {};
 		return{
 			create: create
 		};
-	}
+	};
+
+	var FailedPipeline = function(buildStatusWidget,failedBuildsList){
+		function removeFromWidgetAndAddToFailureList(pipelineStageElement){
+			buildStatusWidget.removeClass("builds-passed");
+			failedBuildsList.add(pipelineStageElement);
+		}
+
+		return{
+			removeFromWidgetAndAddToFailureList: removeFromWidgetAndAddToFailureList
+		};
+		
+	};
+
+
+	var PipelineLists = function(runningBuildsList,pipelineStageElementFactory, failedPipeline){
+		function add(pipeline){
+			var pipelineStageElement = pipelineStageElementFactory.create(pipeline);
+			if (FailedSpecification.isSatisfiedBy(pipeline)){
+				failedPipeline.removeFromWidgetAndAddToFailureList(pipelineStageElement);
+			}
+			else{
+				runningBuildsList.add(pipelineStageElement);
+			}
+		}
+		return{
+			add: add
+		};
+	};
 
 	module.BuildStatus = function(options){		
-		var BUILD_FAILED = 'Failure',
-			PASSED_CLASS = "builds-passed",
+		var PASSED_CLASS = "builds-passed",
 			BUILD_STATUS_WIDGET = $(".build_status"),
-			failedBuildsList = options.failedBuildsList;
-			runningBuildsList = options.runningBuildsList;
-			pipelineStageElementFactory = options.pipelineStageElementFactory;
+			failedBuildsList = options.failedBuildsList,
+			runningBuildsList = options.runningBuildsList,
+			failedPipeline = new FailedPipeline(BUILD_STATUS_WIDGET,failedBuildsList),
+			pipelineLists = new PipelineLists(runningBuildsList,options.pipelineStageElementFactory, failedPipeline);
+
 
 		function update(data){			
 			resetWidget();
 			addPipelinesToList(data.items);
+		}
+
+		return {
+			update : update
 		};
 
 		function resetWidget(){
@@ -68,26 +107,15 @@ var Builds = Builds || {};
 
 		function addPipelinesToList(pipelines){
 			var pipelineCount = 0;
-			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
-				var pipeline = pipelines[pipelineCount];
-				var pipelineStageElement = pipelineStageElementFactory.create(pipeline);
-
-				if (pipeline.status === BUILD_FAILED){
-					BUILD_STATUS_WIDGET.removeClass(PASSED_CLASS);
-					failedBuildsList.add(pipelineStageElement);
-				}
-				else{
-					runningBuildsList.add(pipelineStageElement);
-				}
+			var numberOfPipeLines = pipelines.length;
+			var pipeline;
+			for(pipelineCount; pipelineCount < numberOfPipeLines; pipelineCount++){
+				pipeline = pipelines[pipelineCount];
+				pipelineLists.add(pipeline);
 			}		
-		}
-
-		return {
-			update : update
-		}
+		}	
 	};
 
 
 
 })(Builds);
-

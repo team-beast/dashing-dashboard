@@ -4,7 +4,6 @@ class Dashing.Brokenbuilds extends Dashing.Widget
 			failedBuildsList            : new Builds.PipelinesList("#failed_builds")
 			runningBuildsList           : new Builds.PipelinesList("#running_builds")
 			pipelineStageElementFactory : new Builds.PipelineStageElementFactory() 
-		
 		@buildStatus = new Builds.BuildStatus(options)
 		super
 
