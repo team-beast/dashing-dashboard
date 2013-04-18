@@ -21,7 +21,6 @@ var Builds = Builds || {};
 			BUILD_STATUS_WIDGET = $(".build_status"),
 			failedBuildsList = options.failedBuildsList,
 			runningBuildsList = options.runningBuildsList,
-			buildingElementTemplate = options.buildingElementTemplate,
 			failedElementTemplate = options.failedElementTemplate;
 
 		function update(data){
