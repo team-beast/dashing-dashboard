@@ -6,8 +6,7 @@
 			buildStatusWidget = $(".build_status");
 		buildStatusWidget.removeClass(failedClass);
 		new Builds.BuildStatus({failedBuildsList: StubListAdder,
-								runningBuildsList: StubListAdder,
-								pipelineStageElementFactory: stubPipelineStageElementFactory})
+								runningBuildsList: StubListAdder})
 								.update(buildData);
 		equal(buildStatusWidget.hasClass(failedClass), true);
 	});
@@ -66,8 +65,7 @@
 				}
 			};
 		new Builds.BuildStatus({failedBuildsList: fakeListAdder,
-								runningBuildsList: StubListAdder,
-								pipelineStageElementFactory: stubPipelineStageElementFactory})
+								runningBuildsList: StubListAdder})
 								.update(buildData)
 		equal(clearCalled,true);
 	});
@@ -85,8 +83,7 @@
 				}
 			};
 		new Builds.BuildStatus({failedBuildsList: StubListAdder,
-								runningBuildsList: fakeListAdder,
-								pipelineStageElementFactory: stubPipelineStageElementFactory})
+								runningBuildsList: fakeListAdder})
 								.update(buildData)
 		equal(clearCalled,true);
 	});

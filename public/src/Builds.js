@@ -1,18 +1,6 @@
 var Builds = Builds || {};
 (function(module){
 
-	var BuildingElementTemplate = {
-		build : function(pipeline){
-			return 
-		}
-	}
-
-	var FailedElementTemplate = {
-		build : function(pipeline){
-			return 
-		}
-	}
-
 	module.PipelinesList = function(list_id){
 		function clear(element){
 			$(list_id).empty();
@@ -51,6 +39,7 @@ var Builds = Builds || {};
 			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
 				var pipeline = pipelines[pipelineCount];
 					if(pipeline.status === BUILD_FAILED){
+						BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
 						var element = "<li><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>";
 						failedBuildsList.add(element);
 					}
