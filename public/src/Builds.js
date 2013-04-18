@@ -30,8 +30,6 @@ var Builds = Builds || {};
 	module.BuildStatus = function(options){
 		var BUILD_FAILED = 'Failure',
 			FAILED_CLASS = "builds-failed",
-			FAILED_BUILDS_LIST_ID = "#failed_builds",
-			RUNNING_BUILDS_LIST_ID = "#running_builds",
 			BUILD_STATUS_WIDGET = $(".build_status"),
 			failedBuildsList = options.failedBuildsList,
 			runningBuildsList = options.runningBuildsList,
@@ -40,7 +38,6 @@ var Builds = Builds || {};
 
 		function update(data){
 			clearTheLists();
-			
 			var pipelines = data.items;
 			var pipelineCount = 0;
 			
@@ -55,7 +52,7 @@ var Builds = Builds || {};
 						var element = buildingElementTemplate.build(pipeline);
 						runningBuildsList.add(element);
 					}
-			}	
+			}
 		};
 
 		function clearTheLists(){
