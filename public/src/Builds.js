@@ -6,7 +6,7 @@ var Builds = Builds || {};
 			$(list_id).empty();
 		}
 		function add(element){
-			$(list_id).append(buildingElementTemplate.build(pipeline));
+			$(list_id).append(element);
 		}
 
 		return {
