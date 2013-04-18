@@ -13,52 +13,6 @@
 	});
 
 
-	test("When failed, Then failed list contains correct element",function(){
-		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
-			buildData = { 
-				items: [pipeline]
-			},
-			failedBuildList = $('#failed_builds'),
-			stubFailedPipelineStageElementFactory = new StubFailedPipelineStageElementFactory(),
-			expectedElement = stubFailedPipelineStageElementFactory.create(pipeline),
-			appendedElement,
-			mockListAdder = {
-				add : function(element){
-					appendedElement = element;
-				},
-				clear: function(){}
-			};		
-		failedBuildList.empty()
-		new Builds.BuildStatus({pipelineStageElementFactory: stubFailedPipelineStageElementFactory,
-								failedBuildsList: mockListAdder,
-								runningBuildsList: StubListAdder})
-								.update(buildData);
-		equal(appendedElement,expectedElement);
-	});
-
-	test("When building, Then building list contains correct element",function(){
-		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Building"},
-			buildData = { 
-				items: [pipeline]
-			},
-			failedBuildList = $('#failed_builds'),
-			stubFailedPipelineStageElementFactory = new StubFailedPipelineStageElementFactory(),
-			expectedElement = stubFailedPipelineStageElementFactory.create(pipeline),
-			appendedElement,
-			mockListAdder = {
-				add : function(element){
-					appendedElement = element;
-				},
-				clear: function(){}
-			};		
-		failedBuildList.empty()
-		new Builds.BuildStatus({pipelineStageElementFactory: stubFailedPipelineStageElementFactory,
-								failedBuildsList: StubListAdder,
-								runningBuildsList: mockListAdder})
-								.update(buildData);
-		equal(appendedElement,expectedElement);
-	});
-
 	test("When failed and updated, Then failed list cleared",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
 			buildData = { 

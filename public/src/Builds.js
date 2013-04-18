@@ -27,83 +27,50 @@ var Builds = Builds || {};
 		};
 	};
 
-	var FailedSpecification = {
-		isSatisfiedBy: function(pipeline){
-			return pipeline.status === 'Failure';
-		}
-	};
-
-	module.PipelineStageElementFactory = function(options){
-		options = options || {}
-		buildingElementTemplate = options.buildingElementTemplate || BuildingElementTemplate;
-		failedElementTemplate = options.failedElementTemplate || FailedElementTemplate;
-
-
-		function create(pipeline){
-			var element = buildingElementTemplate.build(pipeline);
-
-			if(FailedSpecification.isSatisfiedBy(pipeline)){
-				element = failedElementTemplate.build(pipeline);
-			}
-			return element;
-		}
-
-		return{
-			create: create
-		};
-	};
-
-	var FailedPipeline = function(buildStatusWidget,failedBuildsList){
-		function removeFromWidgetAndAddToFailureList(pipelineStageElement){
-			buildStatusWidget.removeClass("builds-passed");
-			failedBuildsList.add(pipelineStageElement);
-		}
-
-		return{
-			removeFromWidgetAndAddToFailureList: removeFromWidgetAndAddToFailureList
-		};
-		
-	};
-
-	module.BuildStatus = function(options){		
-		var PASSED_CLASS = "builds-passed",
+	module.BuildStatus = function(options){
+		var BUILD_FAILED = 'Failure',
+			PASSED_CLASS = "builds-passed",
+			FAILED_BUILDS_LIST_ID = "#failed_builds",
+			RUNNING_BUILDS_LIST_ID = "#running_builds",
 			BUILD_STATUS_WIDGET = $(".build_status"),
 			failedBuildsList = options.failedBuildsList,
 			runningBuildsList = options.runningBuildsList,
-			failedPipeline = new FailedPipeline(BUILD_STATUS_WIDGET,failedBuildsList);
+			buildingElementTemplate = options.buildingElementTemplate || BuildingElementTemplate,
+			failedElementTemplate = options.failedElementTemplate || FailedElementTemplate;
 
-		function update(data){			
-			resetWidget();
+		function update(data){
+			failedBuildsList.clear();
+			runningBuildsList.clear();
+			BUILD_STATUS_WIDGET.addClass(PASSED_CLASS);
 			addPipelinesToList(data.items);
+		};
+
+		function addPipelinesToList(pipelines){
+			var pipelineCount = 0;
+			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
+				var pipeline = pipelines[pipelineCount];
+				create(pipeline);
+			}		
+		}
+
+		function create(pipeline){
+			if(pipeline.status == BUILD_FAILED){
+				var element = failedElementTemplate.build(pipeline);
+				BUILD_STATUS_WIDGET.removeClass(PASSED_CLASS);
+				failedBuildsList.add(element);
+			}
+			else{
+				var element = buildingElementTemplate.build(pipeline);
+				runningBuildsList.add(element);
+			}
 		}
 
 		return {
 			update : update
-		};
-
-		function resetWidget(){
-			failedBuildsList.clear();
-			runningBuildsList.clear();
-			BUILD_STATUS_WIDGET.addClass(PASSED_CLASS);
 		}
-
-		function addPipelinesToList(pipelines){
-			var pipelineCount = 0;
-			var numberOfPipeLines = pipelines.length;
-			var pipeline;
-			for(pipelineCount; pipelineCount < numberOfPipeLines; pipelineCount++){
-				pipeline = pipelines[pipelineCount];
-				var pipelineStageElement = options.pipelineStageElementFactory.create(pipeline);
-				if (FailedSpecification.isSatisfiedBy(pipeline)){
-					failedPipeline.removeFromWidgetAndAddToFailureList(pipelineStageElement);
-				}
-				else{
-					runningBuildsList.add(pipelineStageElement);
-				}
-			}		
-		}	
 	};
 
 
 
 })(Builds);
+
