@@ -2,14 +2,14 @@
 	module("Build status");
 	test("When one failed build Then failed class added to build status widget", function(){
 		var buildData = { items: [{status: "Failure"}]},
-			passedClass = "builds-failed",
+			failedClass = "builds-failed",
 			buildStatusWidget = $(".build_status");
-		buildStatusWidget.removeClass(passedClass);
+		buildStatusWidget.removeClass(failedClass);
 		new Builds.BuildStatus({failedBuildsList: StubListAdder,
 								runningBuildsList: StubListAdder,
 								pipelineStageElementFactory: stubPipelineStageElementFactory})
 								.update(buildData);
-		equal(buildStatusWidget.hasClass(passedClass), true);
+		equal(buildStatusWidget.hasClass(failedClass), true);
 	});
 
 

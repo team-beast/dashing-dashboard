@@ -3,13 +3,13 @@ var Builds = Builds || {};
 
 	var BuildingElementTemplate = {
 		build : function(pipeline){
-			return "<li><span>BUILDING -- </span><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>"
+			return 
 		}
 	}
 
 	var FailedElementTemplate = {
 		build : function(pipeline){
-			return "<li><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>"
+			return 
 		}
 	}
 
@@ -33,8 +33,8 @@ var Builds = Builds || {};
 			BUILD_STATUS_WIDGET = $(".build_status"),
 			failedBuildsList = options.failedBuildsList,
 			runningBuildsList = options.runningBuildsList,
-			buildingElementTemplate = options.buildingElementTemplate || BuildingElementTemplate,
-			failedElementTemplate = options.failedElementTemplate || FailedElementTemplate;
+			buildingElementTemplate = options.buildingElementTemplate,
+			failedElementTemplate = options.failedElementTemplate;
 
 		function update(data){
 			clearTheLists();
@@ -51,13 +51,11 @@ var Builds = Builds || {};
 			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
 				var pipeline = pipelines[pipelineCount];
 					if(pipeline.status === BUILD_FAILED){
-						BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
-
-						var element = failedElementTemplate.build(pipeline);
+						var element = "<li><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>";
 						failedBuildsList.add(element);
 					}
 					else{
-						var element = buildingElementTemplate.build(pipeline);
+						var element = "<li><span>BUILDING -- </span><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>";
 						runningBuildsList.add(element);
 					}
 			}
