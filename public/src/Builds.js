@@ -29,7 +29,7 @@ var Builds = Builds || {};
 
 	module.BuildStatus = function(options){
 		var BUILD_FAILED = 'Failure',
-			PASSED_CLASS = "builds-passed",
+			FAILED_CLASS = "builds-failed",
 			FAILED_BUILDS_LIST_ID = "#failed_builds",
 			RUNNING_BUILDS_LIST_ID = "#running_builds",
 			BUILD_STATUS_WIDGET = $(".build_status"),
@@ -39,31 +39,30 @@ var Builds = Builds || {};
 			failedElementTemplate = options.failedElementTemplate || FailedElementTemplate;
 
 		function update(data){
-			failedBuildsList.clear();
-			runningBuildsList.clear();
-			BUILD_STATUS_WIDGET.addClass(PASSED_CLASS);
-			addPipelinesToList(data.items);
-		};
-
-		function addPipelinesToList(pipelines){
+			clearTheLists();
+			
+			var pipelines = data.items;
 			var pipelineCount = 0;
+			
 			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
 				var pipeline = pipelines[pipelineCount];
-				create(pipeline);
-			}		
+					if(pipeline.status === BUILD_FAILED){
+						var element = failedElementTemplate.build(pipeline);
+						BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
+						failedBuildsList.add(element);
+					}
+					else{
+						var element = buildingElementTemplate.build(pipeline);
+						runningBuildsList.add(element);
+					}
+			}	
+		};
+
+		function clearTheLists(){
+			failedBuildsList.clear();
+			runningBuildsList.clear();
 		}
 
-		function create(pipeline){
-			if(pipeline.status == BUILD_FAILED){
-				var element = failedElementTemplate.build(pipeline);
-				BUILD_STATUS_WIDGET.removeClass(PASSED_CLASS);
-				failedBuildsList.add(element);
-			}
-			else{
-				var element = buildingElementTemplate.build(pipeline);
-				runningBuildsList.add(element);
-			}
-		}
 
 		return {
 			update : update

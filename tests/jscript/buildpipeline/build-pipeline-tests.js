@@ -1,8 +1,8 @@
 (function(){
 	module("Build status");
-	test("When one passed build Then passed class added to build status widget", function(){
-		var buildData = { items: [{status: "Passed"}]},
-			passedClass = "builds-passed",
+	test("When one failed build Then failed class added to build status widget", function(){
+		var buildData = { items: [{status: "Failure"}]},
+			passedClass = "builds-failed",
 			buildStatusWidget = $(".build_status");
 		buildStatusWidget.removeClass(passedClass);
 		new Builds.BuildStatus({failedBuildsList: StubListAdder,
