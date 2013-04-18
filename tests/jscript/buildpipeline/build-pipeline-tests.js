@@ -13,6 +13,46 @@
 	});
 
 
+	test("When failed, Then failed list contains correct element",function(){
+		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
+			buildData = { 
+				items: [pipeline]
+			},
+			failedBuildList = $('#failed_builds'),
+			appendedElement,
+			mockListAdder = {
+				add : function(element){
+					appendedElement = element;
+				},
+				clear: function(){}
+			};		
+		failedBuildList.empty()
+		new Builds.BuildStatus({failedBuildsList: mockListAdder,
+								runningBuildsList: StubListAdder})
+								.update(buildData);
+		equal(appendedElement, "<li><span class='label'>bob</span> <span class='value'>fred</span></li>");
+	});
+
+	test("When building, Then building list contains correct element",function(){
+		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Building"},
+			buildData = { 
+				items: [pipeline]
+			},
+			failedBuildList = $('#failed_builds'),
+			appendedElement,
+			mockListAdder = {
+				add : function(element){
+					appendedElement = element;
+				},
+				clear: function(){}
+			};		
+		failedBuildList.empty()
+		new Builds.BuildStatus({failedBuildsList: StubListAdder,
+								runningBuildsList: mockListAdder})
+								.update(buildData);
+		equal(appendedElement, "<li><span>BUILDING -- </span><span class='label'>bob</span> <span class='value'>fred</span></li>");
+	});
+
 	test("When failed and updated, Then failed list cleared",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
 			buildData = { 

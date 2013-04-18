@@ -18,7 +18,7 @@ var Builds = Builds || {};
 			$(list_id).empty();
 		}
 		function add(element){
-			$(list_id).append(element);
+			$(list_id).append(buildingElementTemplate.build(pipeline));
 		}
 
 		return {
@@ -38,14 +38,22 @@ var Builds = Builds || {};
 
 		function update(data){
 			clearTheLists();
+
 			var pipelines = data.items;
+
+			createTheLists(pipelines);
+		};
+
+		function createTheLists(pipelines){
+
 			var pipelineCount = 0;
 			
 			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
 				var pipeline = pipelines[pipelineCount];
 					if(pipeline.status === BUILD_FAILED){
-						var element = failedElementTemplate.build(pipeline);
 						BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
+
+						var element = failedElementTemplate.build(pipeline);
 						failedBuildsList.add(element);
 					}
 					else{
@@ -53,7 +61,7 @@ var Builds = Builds || {};
 						runningBuildsList.add(element);
 					}
 			}
-		};
+		}
 
 		function clearTheLists(){
 			failedBuildsList.clear();
