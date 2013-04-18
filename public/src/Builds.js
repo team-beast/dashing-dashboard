@@ -65,30 +65,12 @@ var Builds = Builds || {};
 		
 	};
 
-
-	var PipelineLists = function(runningBuildsList,pipelineStageElementFactory, failedPipeline){
-		function add(pipeline){
-			var pipelineStageElement = pipelineStageElementFactory.create(pipeline);
-			if (FailedSpecification.isSatisfiedBy(pipeline)){
-				failedPipeline.removeFromWidgetAndAddToFailureList(pipelineStageElement);
-			}
-			else{
-				runningBuildsList.add(pipelineStageElement);
-			}
-		}
-		return{
-			add: add
-		};
-	};
-
 	module.BuildStatus = function(options){		
 		var PASSED_CLASS = "builds-passed",
 			BUILD_STATUS_WIDGET = $(".build_status"),
 			failedBuildsList = options.failedBuildsList,
 			runningBuildsList = options.runningBuildsList,
-			failedPipeline = new FailedPipeline(BUILD_STATUS_WIDGET,failedBuildsList),
-			pipelineLists = new PipelineLists(runningBuildsList,options.pipelineStageElementFactory, failedPipeline);
-
+			failedPipeline = new FailedPipeline(BUILD_STATUS_WIDGET,failedBuildsList);
 
 		function update(data){			
 			resetWidget();
@@ -111,7 +93,13 @@ var Builds = Builds || {};
 			var pipeline;
 			for(pipelineCount; pipelineCount < numberOfPipeLines; pipelineCount++){
 				pipeline = pipelines[pipelineCount];
-				pipelineLists.add(pipeline);
+				var pipelineStageElement = options.pipelineStageElementFactory.create(pipeline);
+				if (FailedSpecification.isSatisfiedBy(pipeline)){
+					failedPipeline.removeFromWidgetAndAddToFailureList(pipelineStageElement);
+				}
+				else{
+					runningBuildsList.add(pipelineStageElement);
+				}
 			}		
 		}	
 	};
