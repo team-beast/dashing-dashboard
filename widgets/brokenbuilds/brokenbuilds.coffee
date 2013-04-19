@@ -1,9 +1,11 @@
 class Dashing.Brokenbuilds extends Dashing.Widget
 	constructor: ->
 		super
+		failedBuildsList = new Builds.PipelinesList("#failed_builds","#failed-build-template")
+		runningBuildsList = new Builds.PipelinesList("#running_builds","#building-build-template")
+		buildsList = new Builds.BuildLists(failedBuildsList,runningBuildsList)
 		options = 	
-			failedBuildsList            : new Builds.PipelinesList("#failed_builds","#failed-build-template")
-			runningBuildsList           : new Builds.PipelinesList("#running_builds","#building-build-template")
+			buildLists : buildsList
 		@buildStatus = new Builds.BuildStatus(options)
 		
 

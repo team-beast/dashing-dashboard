@@ -5,7 +5,8 @@
 			failedClass = "builds-failed",
 			buildStatusWidget = $(".build_status");
 		buildStatusWidget.removeClass(failedClass);
-		new Builds.BuildStatus({failedBuildsList: StubListAdder,
+		new Builds.BuildStatus({buildLists: new Builds.BuildLists(StubListAdder,StubListAdder),
+								failedBuildsList: StubListAdder,
 								runningBuildsList: StubListAdder})
 								.update(buildData);
 		equal(buildStatusWidget.hasClass(failedClass), true);
@@ -16,7 +17,8 @@
 			failedClass = "builds-failed",
 			buildStatusWidget = $(".build_status");
 		buildStatusWidget.removeClass(failedClass);
-		new Builds.BuildStatus({failedBuildsList: StubListAdder,
+		new Builds.BuildStatus({buildLists: new Builds.BuildLists(StubListAdder,StubListAdder),
+								failedBuildsList: StubListAdder,
 								runningBuildsList: StubListAdder})
 								.update(buildData);
 		equal(buildStatusWidget.hasClass(failedClass), true);
@@ -36,8 +38,9 @@
 				},
 				clear: function(){}
 			};		
-		failedBuildList.empty()
-		new Builds.BuildStatus({failedBuildsList: mockListAdder,
+		failedBuildList.empty();
+		new Builds.BuildStatus({buildLists: new Builds.BuildLists(mockListAdder,StubListAdder),
+								failedBuildsList: mockListAdder,
 								runningBuildsList: StubListAdder})
 								.update(buildData);
 		equal(templatedPipeline, pipeline);
@@ -56,8 +59,10 @@
 				},
 				clear: function(){}
 			};		
-		failedBuildList.empty()
-		new Builds.BuildStatus({failedBuildsList: StubListAdder,
+		failedBuildList.empty();
+
+		new Builds.BuildStatus({buildLists: new Builds.BuildLists(StubListAdder,mockListAdder),
+								failedBuildsList: StubListAdder,
 								runningBuildsList: mockListAdder})
 								.update(buildData);
 		equal(templatedPipeline, pipeline);
@@ -75,7 +80,8 @@
 					clearCalled = true;
 				}
 			};
-		new Builds.BuildStatus({failedBuildsList: fakeListAdder,
+		new Builds.BuildStatus({buildLists: new Builds.BuildLists(fakeListAdder,StubListAdder),
+								failedBuildsList: fakeListAdder,
 								runningBuildsList: StubListAdder})
 								.update(buildData)
 		equal(clearCalled,true);
@@ -93,7 +99,8 @@
 					clearCalled = true;
 				}
 			};
-		new Builds.BuildStatus({failedBuildsList: StubListAdder,
+		new Builds.BuildStatus({buildLists: new Builds.BuildLists(StubListAdder,fakeListAdder),
+								failedBuildsList: StubListAdder,
 								runningBuildsList: fakeListAdder})
 								.update(buildData)
 		equal(clearCalled,true);
@@ -110,15 +117,4 @@ var StubListAdder = {
 
 var stubPipelineStageElementFactory = {
 	create: function(){}
-};
-
-var StubFailedPipelineStageElementFactory = function(){
-	function create(pipeline){
-		return "<li><span class='pipeline-name'>"+ pipeline.pipeline_name +"</span> <span class='pipeline-stage'>"+pipeline.stage_name+"</span></li>"	
-	}
-
-	return {
-		create: create,
-	};
-	
 };

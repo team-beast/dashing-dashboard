@@ -17,50 +17,73 @@ var Builds = Builds || {};
 		};
 	};
 
-	module.BuildStatus = function(options){
-		var BUILD_FAILED = 'Failure',
-			FAILED_CLASS = "builds-failed",
-			BUILD_STATUS_WIDGET = $(".build_status"),
-			failedBuildsList = options.failedBuildsList,
-			runningBuildsList = options.runningBuildsList,
-			failedElementTemplate = options.failedElementTemplate;
+	module.BuildLists = function(failedBuildsList,runningBuildsList){
+		
+		function clear(){
+			failedBuildsList.clear();
+			runningBuildsList.clear();
+		}
 
-		function update(data){
-			clearTheLists();
-
-			var pipelines = data.items;
-
-			createTheLists(pipelines);
-		};
-
-		function createTheLists(pipelines){
-
-			var pipelineCount = 0;
-			
-			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
-				var pipeline = pipelines[pipelineCount];
-					if(pipeline.status === BUILD_FAILED){
-						BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
-						failedBuildsList.add(pipeline);
-					}
-					else{
-						if(pipeline.last_build_status == BUILD_FAILED){
-							BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
-						}
-						var element = "<li><span>BUILDING -- </span><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>";
-						runningBuildsList.add(pipeline);
-					}
+		function add(pipeline){
+			if(pipeline.status === 'Failure'){
+				failedBuildsList.add(pipeline);
+			}
+			else{
+				runningBuildsList.add(pipeline);
 			}
 		}
 
-		function clearTheLists(){
-			failedBuildsList.clear();
-			runningBuildsList.clear();
+		return{
+			clear: clear,
+			add: add
+		};
+	};
+
+	module.BuildStatus = function(options){
+		var FAILED_CLASS = "builds-failed",
+			BUILD_STATUS_WIDGET = $(".build_status"),
+			buildLists = options.buildLists,
+			buildStatusFailureSpecification = new BuildStatusFailureSpecification();
+			console.log(options);
+		function update(data){
+			clearList();
+			var pipelines = data.items;
+			createList(pipelines);
+		};
+
+		function createList(pipelines){
+			var pipelineCount = 0;
+			for(pipelineCount; pipelineCount < pipelines.length; pipelineCount++){
+				var pipeline = pipelines[pipelineCount];
+					if(buildStatusFailureSpecification.isSatisfiedBy(pipeline)){
+						BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
+					}
+					buildLists.add(pipeline);
+			}
+		}
+
+		function buildStatusFailed(pipeline){
+			return pipeline.status === BUILD_FAILED || pipeline.last_build_status === BUILD_FAILED
+		}
+
+		function clearList(){
+			buildLists.clear();
 		}
 
 
 		return {
 			update : update
+		};
+	};
+
+	var BuildStatusFailureSpecification = function(){
+		BUILD_FAILED = 'Failure';
+		function isSatisfiedBy(pipeline){
+			return pipeline.status === BUILD_FAILED || pipeline.last_build_status === BUILD_FAILED;
+		}
+
+		return{
+			isSatisfiedBy: isSatisfiedBy
 		};
 	};
 
