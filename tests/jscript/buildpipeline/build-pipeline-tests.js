@@ -11,6 +11,17 @@
 		equal(buildStatusWidget.hasClass(failedClass), true);
 	});
 
+	test("When one Building build with last_build_status of failed Then failed class added to build status widget", function(){
+		var buildData = { items: [{status: "Building", last_build_status: "Failure"}]},
+			failedClass = "builds-failed",
+			buildStatusWidget = $(".build_status");
+		buildStatusWidget.removeClass(failedClass);
+		new Builds.BuildStatus({failedBuildsList: StubListAdder,
+								runningBuildsList: StubListAdder})
+								.update(buildData);
+		equal(buildStatusWidget.hasClass(failedClass), true);
+	});
+
 
 	test("When failed, Then failed list contains correct element",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},

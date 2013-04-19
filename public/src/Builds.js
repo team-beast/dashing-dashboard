@@ -43,6 +43,9 @@ var Builds = Builds || {};
 						failedBuildsList.add(element);
 					}
 					else{
+						if(pipeline.last_build_status == BUILD_FAILED){
+							BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
+						}
 						var element = "<li><span>BUILDING -- </span><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>";
 						runningBuildsList.add(element);
 					}
