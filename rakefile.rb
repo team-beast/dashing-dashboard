@@ -1,11 +1,14 @@
 require './tests/jscript/lib/qunit.rb'
 require 'rbconfig'
 
-task :default => [:dependencies, :unit_tests, :commit, :deploy]
+task :default => [:update, :unit_tests, :commit, :deploy]
 multitask :unit_tests => [:ruby_tests, :qunit] 
 
-task :dependencies do
-	sh "bundle install"
+task :update do
+	require 'git_repository'
+	git = GitRepository.new
+	git.pull
+	sh "bundle update"
 end
 
 task :ruby_tests do
