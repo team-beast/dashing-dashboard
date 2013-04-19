@@ -57,7 +57,7 @@ var Builds = Builds || {};
 
 		return {
 			update : update
-		}
+		};
 	};
 
 

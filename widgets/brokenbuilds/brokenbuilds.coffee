@@ -1,10 +1,11 @@
 class Dashing.Brokenbuilds extends Dashing.Widget
 	constructor: ->
+		super
 		options = 	
 			failedBuildsList            : new Builds.PipelinesList("#failed_builds")
 			runningBuildsList           : new Builds.PipelinesList("#running_builds")
 		@buildStatus = new Builds.BuildStatus(options)
-		super
+		
 
 	ready: ->
 		if @get('unordered')
