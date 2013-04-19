@@ -1,4 +1,27 @@
 <h1 class="title" data-bind="title"></h1>
+<div id="failed-build-template" style="display:none">
+    <li>
+        <span class='label'> 
+            {{pipeline_name}}
+        </span> 
+        <span class='value'>
+            {{stage_name}}
+        </span>
+    </li>
+</div>
+
+<div id="building-build-template" style="display:none">
+    <li>
+    	<span> Building!!! </span>
+        <span class='label'> 
+            {{pipeline_name}}
+        </span> 
+        <span class='value'>
+            {{stage_name}}
+        </span>
+    </li>
+</div>
+
 
 <div>
 	<ul id="failed_builds">

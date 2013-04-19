@@ -1,12 +1,14 @@
 var Builds = Builds || {};
 (function(module){
 
-	module.PipelinesList = function(list_id){
+	module.PipelinesList = function(list_id,template_id){
 		function clear(element){
 			$(list_id).empty();
 		}
-		function add(element){
-			$(list_id).append(element);
+		function add(pipeline){
+			var source   = $(template_id).html();
+			var template = Handlebars.compile(source);
+			$(list_id).append(template(pipeline));
 		}
 
 		return {
@@ -39,15 +41,14 @@ var Builds = Builds || {};
 				var pipeline = pipelines[pipelineCount];
 					if(pipeline.status === BUILD_FAILED){
 						BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
-						var element = "<li><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>";
-						failedBuildsList.add(element);
+						failedBuildsList.add(pipeline);
 					}
 					else{
 						if(pipeline.last_build_status == BUILD_FAILED){
 							BUILD_STATUS_WIDGET.addClass(FAILED_CLASS);
 						}
 						var element = "<li><span>BUILDING -- </span><span class='label'>" + pipeline.pipeline_name+ "</span> <span class='value'>" + pipeline.stage_name+ "</span></li>";
-						runningBuildsList.add(element);
+						runningBuildsList.add(pipeline);
 					}
 			}
 		}

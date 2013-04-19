@@ -23,16 +23,16 @@
 	});
 
 
-	test("When failed, Then failed list contains correct element",function(){
+	test("When failed, Then failed list gets correct pipeline",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
 			buildData = { 
 				items: [pipeline]
 			},
 			failedBuildList = $('#failed_builds'),
-			appendedElement,
+			templatedPipeline,
 			mockListAdder = {
-				add : function(element){
-					appendedElement = element;
+				add : function(pipeline){
+					templatedPipeline = pipeline;
 				},
 				clear: function(){}
 			};		
@@ -40,7 +40,7 @@
 		new Builds.BuildStatus({failedBuildsList: mockListAdder,
 								runningBuildsList: StubListAdder})
 								.update(buildData);
-		equal(appendedElement, "<li><span class='label'>bob</span> <span class='value'>fred</span></li>");
+		equal(templatedPipeline, pipeline);
 	});
 
 	test("When building, Then building list contains correct element",function(){
@@ -49,10 +49,10 @@
 				items: [pipeline]
 			},
 			failedBuildList = $('#failed_builds'),
-			appendedElement,
+			templatedPipeline,
 			mockListAdder = {
-				add : function(element){
-					appendedElement = element;
+				add : function(pipeline){
+					templatedPipeline = pipeline;
 				},
 				clear: function(){}
 			};		
@@ -60,7 +60,7 @@
 		new Builds.BuildStatus({failedBuildsList: StubListAdder,
 								runningBuildsList: mockListAdder})
 								.update(buildData);
-		equal(appendedElement, "<li><span>BUILDING -- </span><span class='label'>bob</span> <span class='value'>fred</span></li>");
+		equal(templatedPipeline, pipeline);
 	});
 
 	test("When failed and updated, Then failed list cleared",function(){
