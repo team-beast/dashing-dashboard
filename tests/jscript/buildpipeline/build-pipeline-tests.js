@@ -1,7 +1,7 @@
 (function(){
 	module("Build status");
 	test("When one failed build Then failed class added to build status widget", function(){
-		var buildData = { items: [{status: "Failure"}]},
+		var buildData = [{status: "Failure"}],
 			failedClass = "builds-failed",
 			buildStatusWidget = $(".build_status");
 		buildStatusWidget.removeClass(failedClass);
@@ -13,7 +13,7 @@
 	});
 
 	test("When one Building build with last_build_status of failed Then failed class added to build status widget", function(){
-		var buildData = { items: [{status: "Building", last_build_status: "Failure"}]},
+		var buildData = [{status: "Building", last_build_status: "Failure"}],
 			failedClass = "builds-failed",
 			buildStatusWidget = $(".build_status");
 		buildStatusWidget.removeClass(failedClass);
@@ -27,9 +27,7 @@
 
 	test("When failed, Then failed list gets correct pipeline",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
-			buildData = { 
-				items: [pipeline]
-			},
+			buildData = [pipeline],
 			failedBuildList = $('#failed_builds'),
 			templatedPipeline,
 			mockListAdder = {
@@ -48,9 +46,7 @@
 
 	test("When building, Then building list contains correct element",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Building"},
-			buildData = { 
-				items: [pipeline]
-			},
+			buildData = [pipeline],
 			failedBuildList = $('#failed_builds'),
 			templatedPipeline,
 			mockListAdder = {
@@ -70,9 +66,7 @@
 
 	test("When failed and updated, Then failed list cleared",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Failure"},
-			buildData = { 
-				items: [pipeline]
-			},
+			buildData = [pipeline],
 			clearCalled = false,
 			fakeListAdder = {
 				add: function(){},
@@ -89,9 +83,7 @@
 
 	test("When building and updated, Then running list cleared",function(){
 		var pipeline = {pipeline_name: "bob", stage_name: "fred", status: "Building"},
-			buildData = { 
-				items: [pipeline]
-			},
+			buildData = [pipeline],
 			clearCalled = false,
 			fakeListAdder = {
 				add: function(){},

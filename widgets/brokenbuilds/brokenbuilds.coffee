@@ -7,6 +7,7 @@ class Dashing.Brokenbuilds extends Dashing.Widget
 		options = 	
 			buildLists : buildsList
 		@buildStatus = new Builds.BuildStatus(options)
+		@orderedPipelineFactory = new OrderedPipelineFactory()
 		
 
 	ready: ->
@@ -16,4 +17,5 @@ class Dashing.Brokenbuilds extends Dashing.Widget
 			q$(@node).find('ul').remove()
 			console.log("broken build ready")
 	onData: (data) =>
-		@buildStatus.update(data)
+		pipelines = @orderedPipelineFactory.create(data)
+		@buildStatus.update(pipelines)

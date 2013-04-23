@@ -39,15 +39,15 @@ var Builds = Builds || {};
 		};
 	};
 
+
 	module.BuildStatus = function(options){
 		var FAILED_CLASS = "builds-failed",
 			BUILD_STATUS_WIDGET = $(".build_status"),
 			buildLists = options.buildLists,
 			buildStatusFailureSpecification = new BuildStatusFailureSpecification();
-			console.log(options);
-		function update(data){
+		
+		function update(pipelines){
 			clearList();
-			var pipelines = data.items;
 			createList(pipelines);
 		};
 

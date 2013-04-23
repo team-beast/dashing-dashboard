@@ -12,6 +12,16 @@
         <div id="initiallyShown"></div>
         <div id="initiallyHidden" class="hidden"></div>
         <div id="broken_builds_push"></div>
+        <div id="build-template" style="display:none">
+            <li>
+                <span class='label'> 
+                    {{pipeline_name}}
+                </span> 
+                <span class='value'>
+                    {{stage_name}}
+                </span>
+            </li>
+        </div>
         <div class="build_status">
             <ul id="failed_builds">
             </ul>
@@ -28,9 +38,11 @@
     <script src="../../public/src/KeepAlive.js"></script>
     <script src="../../public/src/ServiceLayer.js"></script>
     <script src="../../public/src/Builds.js"></script>
+    <script src="../../public/src/OrderPipelines.js"></script>
     <script src="./flipCell/flip-cell-tests.js"></script>
     <script src="./keepAlive/keep-alive-tests.js"></script>
     <script src="./keepAlive/service-layer-tests.js"></script>
     <script src="./buildpipeline/build-pipeline-tests.js"></script>
+    <script src="./buildpipeline/build-pipeline-order.js"></script>
   </body>
 </html>
