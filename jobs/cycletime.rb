@@ -1,4 +1,3 @@
-require_relative '../src/leankit/leankit.rb'
 require_relative '../src/cycletime/CycleTimeRepository'
 
 class CycleTimeScheduler
