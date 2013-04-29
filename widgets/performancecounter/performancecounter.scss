@@ -1,0 +1,75 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #808000;
+
+$title-color:       rgba(255, 255,255, 1);
+$h2-color:          rgba(255, 255, 255, 1);
+$h4-color:          rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(0, 0, 0, 0.3);
+$tick-color:        rgba(255, 255, 255, 1);
+
+
+// ----------------------------------------------------------------------------
+// Widget-graph styles
+// ----------------------------------------------------------------------------
+.widget-performancecounter{
+
+  background-color: $background-color;
+  position: relative;
+
+  h4 {
+    color: $h4-color;
+    font-weight: normal;
+  }
+
+  h2 {
+    color: $h2-color;
+  }
+
+  svg {
+    position: absolute;
+    opacity: 0.8;
+    fill-opacity: 1;
+    left: 0px;
+    top: 0px;
+  }
+
+  .title, .value {
+    position: relative;
+    z-index: 99;
+  }
+
+  .title {
+    color: $title-color;
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  .x_tick {
+    position: absolute;
+    bottom: 0;
+    .title {
+      font-size: 20px;
+      color: $tick-color;
+      opacity: 1;
+      padding-bottom: 3px;
+    }
+  }
+
+  .y_ticks {
+    font-size: 20px;
+    fill: $tick-color;
+    fill-opacity: 1;
+  }
+
+  .domain {
+    display: none;
+  }
+
+}
