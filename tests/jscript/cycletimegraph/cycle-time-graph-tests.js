@@ -52,35 +52,31 @@ var CycleTime = CycleTime || {};
 (function(module){
 	module.CycleTimeGraph = function(lineGraphFactory){
 			var lineGraph = lineGraphFactory.create(),
-				maximumYCalculator = new DoubleYCalulator();
+				graphPoints = [],
+				maximumSelector = new MaximumSelector(render),
+				maximumYCalculator = new DoubleYCalulator(maximumSelector);
 
 			function update(points){
-				var maxY = maximumYCalculator.calculate(points,this);
+				graphPoints = points;
+				maximumYCalculator.calculate(points);
 			}
 
-			function renderGraph(maxY,points){
-				lineGraph.render(maxY,points);
+			function render(maxY){
+				lineGraph.render(maxY,graphPoints);
 			}
 
 			return{
-				update: update,
-				renderGraph: renderGraph
+				update: update
 			};
 	};
 
-	var DoubleYCalulator = function(){
-		largestHeightCalculator = new LargestHeightCalculator()
-
-		function calculateMaximumHeightForAll(points){
-			return points.map(function(point){
+	var DoubleYCalulator = function(maximumSelector){
+		
+		function calculate(points){
+			heights = points.map(function(point){
 				return point.y * 2;
 			});
-		}
-
-		function calculate(points,cycleTimeGraph){
-			heights = calculateMaximumHeightForAll(points);
-			maxY = largestHeightCalculator.calculate(heights);
-			cycleTimeGraph.renderGraph(maxY,points);
+			maximumSelector.select(heights);
 		}
 
 		return {
@@ -88,12 +84,15 @@ var CycleTime = CycleTime || {};
 		};
 	};
 
-	var LargestHeightCalculator = function(){
-		function calculate(heights){
-			return Math.max.apply(null, heights);
+	var MaximumSelector = function(render){
+		
+		function select(values){
+			maxY = Math.max.apply(null, values);
+			render(maxY)
 		}
+
 		return{
-			calculate: calculate
+			select: select
 		};
 	};
 
