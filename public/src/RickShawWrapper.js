@@ -11,7 +11,7 @@ var LineGraphWrapper = function(options){
 
 		})
 
-	function render(maxY){
+	function render(maxY,points){
 		rickshawGraph.max = maxY;
 		rickshawGraph.series[0].data = points
 		rickshawGraph.render();
