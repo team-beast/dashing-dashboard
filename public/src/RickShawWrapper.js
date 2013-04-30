@@ -6,7 +6,7 @@ var LineGraphWrapper = function(options){
 		}),
 		rickshawAxis = new Rickshaw.Graph.Axis.Y({
 			graph: rickshawGraph,
-			tickFormat: options.tickFormat
+			tickFormat: Rickshaw.Fixtures.Number.formatKMBT
 		});
 
 	function render(maxY,points){
@@ -21,13 +21,12 @@ var LineGraphWrapper = function(options){
 };
 
 
-var LineGraphFactory = function(element,lineColor,tickFormat){
+var LineGraphFactory = function(element,lineColor){
 	
 	function create(){
 		return new LineGraphWrapper({
 			element: element,
-			lineColor: lineColor,
-			tickFormat: tickFormat
+			lineColor: lineColor
 			});
 	}
 
