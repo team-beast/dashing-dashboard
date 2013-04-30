@@ -24,7 +24,7 @@
 					return mockLineGraphWrapper;
 				}
 			};
-		new CycleTime.CycleTimeGraph(fakeLineGraphFactory).render(pointsToBeRendered);
+		new CycleTime.CycleTimeGraph(fakeLineGraphFactory).update(pointsToBeRendered);
 		equal(pointsToBeRendered, rickshawWrapperRenderedPoints)
 	});
 
@@ -42,7 +42,7 @@
 					return mockLineGraphWrapper;
 				}
 			};
-		new CycleTime.CycleTimeGraph(fakeLineGraphFactory).render( pointsToBeRendered);
+		new CycleTime.CycleTimeGraph(fakeLineGraphFactory).update( pointsToBeRendered);
 		equal(rickshawWrapperRenderedMaxY,expectedMaxY);
 	});
 
@@ -52,37 +52,50 @@ var CycleTime = CycleTime || {};
 (function(module){
 	module.CycleTimeGraph = function(lineGraphFactory){
 			var lineGraph = lineGraphFactory.create(),
-				maximumYCalculator = new MaximumYCalculator();
+				maximumYCalculator = new DoubleYCalulator();
 
-			function render(points){
-				var maxY = maximumYCalculator.calculate(points);
+			function update(points){
+				var maxY = maximumYCalculator.calculate(points,this);
+			}
+
+			function renderGraph(maxY,points){
 				lineGraph.render(maxY,points);
 			}
 
 			return{
-				render: render
+				update: update,
+				renderGraph: renderGraph
 			};
 	};
 
-	var MaximumYCalculator = function(){
-		
-		function calculate(points){		
-			var heights = calculateMaximumHeightForAll(points);
-			maxY = calculateLargestHeight(heights);
-			return maxY;
-		} 
+	var DoubleYCalulator = function(){
+		largestHeightCalculator = new LargestHeightCalculator()
 
-		function calculateLargestHeight(heights){
-			return Math.max.apply(null, heights);
-		}
 		function calculateMaximumHeightForAll(points){
 			return points.map(function(point){
 				return point.y * 2;
 			});
 		}
+
+		function calculate(points,cycleTimeGraph){
+			heights = calculateMaximumHeightForAll(points);
+			maxY = largestHeightCalculator.calculate(heights);
+			cycleTimeGraph.renderGraph(maxY,points);
+		}
+
+		return {
+			calculate: calculate
+		};
+	};
+
+	var LargestHeightCalculator = function(){
+		function calculate(heights){
+			return Math.max.apply(null, heights);
+		}
 		return{
 			calculate: calculate
 		};
 	};
+
 })(CycleTime);
 
