@@ -10,6 +10,5 @@ class RedisWrapper
 
 	def get(options)
 		@redis.get(options[:key])
-
 	end
 end
