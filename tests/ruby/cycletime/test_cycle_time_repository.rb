@@ -37,7 +37,7 @@ class TestCycleTimeRepository < Test::Unit::TestCase
 		result = cycle_time_repository.get
 		assert_equal(expected_result, result )
 	end
-
+	
 	def test_that_when_redis_has_no_contents_and_item_added_Then_get_returns_correct_value
 		cycle_time =  2
 		cycle_time_2 = 2
@@ -59,7 +59,6 @@ class TestCycleTimeRepository < Test::Unit::TestCase
 		result = cycle_time_repository.get
 		assert_equal(result.length,84 )
 	end
-
 
 end
 
