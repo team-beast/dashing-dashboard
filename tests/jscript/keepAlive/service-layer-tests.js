@@ -2,7 +2,7 @@
 	module("Service layer tests");
 	test("When woken up, Then jsonp request created with services uri", function(){
 		var receivedUri = "",
-			servicesUri = "http://teambeastservices.herokuapp.com",
+			servicesUri = "http://teambeastservices.herokuapp.com/pipelines",
 			mockjsonpRequestFactory = {
 				create : function(uri){
 					receivedUri = uri

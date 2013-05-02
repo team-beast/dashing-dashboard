@@ -2,19 +2,19 @@ require_relative "../redis/RedisWrapper"
 require_relative 'CycleTimeRepository'
 
 module CycleTime
-	class CycleTimeRepositoryFactory
+	class CycleTimeGraphPointsFactory
 		def initialize(is_production_specification)
 			@is_production_specification = is_production_specification
 		end
 
 		def create
-			return InMemoryCycleTimeRepository.new unless @is_production_specification.satisfied?
-			return CycleTimeRepository.new
+			return InMemoryCycleTimeGraphPoints.new unless @is_production_specification.satisfied?
+			return CycleTimeGraphPoints.new
 		end
 	end
 
 	
 
-	class InMemoryCycleTimeRepository
+	class InMemoryCycleTimeGraphPoints
 	end
 end

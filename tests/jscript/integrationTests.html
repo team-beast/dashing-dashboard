@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Flip Cell Tests</title>
+    <title>Integration</title>
     <link rel="stylesheet" href="./lib/qunit.css">
   </head>
   <body>
@@ -23,28 +23,17 @@
             </li>
         </div>
         <div class="build_status">
-            <ul id="failed_builds">
-            </ul>
-            <ul id="running_builds">
-            </ul>
+          <div id="chart"></div>
         </div>
       </div>
     </div>
     <script src="./lib/qunit.js"></script>
     <script src="./lib/jquery.js"></script>
     <script src="../../public/lib/jquery-ui-1.10.2.custom.min.js"></script>
-    <script src="../../public/src/beast-flipCell.js"></script>
-    <script src="../../public/src/Page.js"></script>
-    <script src="../../public/src/KeepAlive.js"></script>
-    <script src="../../public/src/ServiceLayer.js"></script>
-    <script src="../../public/src/Builds.js"></script>
-    <script src="../../public/src/OrderPipelines.js"></script>
     <script src="../../public/src/CycleTimeGraph.js"></script>
-    <script src="./flipCell/flip-cell-tests.js"></script>
-    <script src="./keepAlive/keep-alive-tests.js"></script>
-    <script src="./keepAlive/service-layer-tests.js"></script>
-    <script src="./buildpipeline/build-pipeline-tests.js"></script>
-    <script src="./buildpipeline/build-pipeline-order.js"></script>
-    <script src="./cycletimegraph/cycle-time-graph-tests.js"></script>
+    <script src="../../public/src/RickShawWrapper.js"></script>
+    <script src="./cycletimegraph/cycle-time-graph-integration.js"></script>
+    <script src="../../assets/javascripts/d3.v2.min.js"></script>
+    <script src="../../assets/javascripts/rickshaw.min.js"></script>
   </body>
 </html>

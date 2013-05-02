@@ -48,54 +48,5 @@
 
 })();
 
-var CycleTime = CycleTime || {};
-(function(module){
-	module.CycleTimeGraph = function(lineGraphFactory){
-			var lineGraph = lineGraphFactory.create(),
-				maximumYCalculator = new DoubleYCalulator();
 
-			function update(points){
-				var maxY = maximumYCalculator.calculate(points,this);
-			}
-
-			function renderGraph(maxY,points){
-				lineGraph.render(maxY,points);
-			}
-
-			return{
-				update: update,
-				renderGraph: renderGraph
-			};
-	};
-
-	var DoubleYCalulator = function(){
-		largestHeightCalculator = new LargestHeightCalculator()
-
-		function calculateMaximumHeightForAll(points){
-			return points.map(function(point){
-				return point.y * 2;
-			});
-		}
-
-		function calculate(points,cycleTimeGraph){
-			heights = calculateMaximumHeightForAll(points);
-			maxY = largestHeightCalculator.calculate(heights);
-			cycleTimeGraph.renderGraph(maxY,points);
-		}
-
-		return {
-			calculate: calculate
-		};
-	};
-
-	var LargestHeightCalculator = function(){
-		function calculate(heights){
-			return Math.max.apply(null, heights);
-		}
-		return{
-			calculate: calculate
-		};
-	};
-
-})(CycleTime);
 

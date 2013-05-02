@@ -5,7 +5,7 @@ class CycleTimeScheduler
 	BOARD_ID = 32404545
 	attr_reader :points
 	def initialize
-		@cycle_time_repository = CycleTime::CycleTimeRepository.new
+		@cycle_time_repository = CycleTime::CycleTimeGraphPoints.new
 	end
 
 	def start
