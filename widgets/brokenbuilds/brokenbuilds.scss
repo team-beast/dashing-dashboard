@@ -68,17 +68,16 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
 
   .builds-failed {
     background-color: $broken;
+
+    .previous-Success {
+      background-color: $passed;    
+      padding: 2px;
+      border: 1px;
+      border-style: solid;
+      border-color: black;
+    }
   }
 
   .buidling_builds_push{
     background-color: $building;
   }
-
-.previous-Success {
-  background-color: green;
-  padding: 2px;
-  border: 1px;
-  border-style: solid;
-  border-color: black;
-}
-
