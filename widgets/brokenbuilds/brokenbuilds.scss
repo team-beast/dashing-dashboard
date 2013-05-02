@@ -63,11 +63,11 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
 }
 
   .build_status{
-    background-color: $broken;
+    background-color: $passed;
   }
 
-  .builds-passed {
-    background-color: $passed;
+  .builds-failed {
+    background-color: $broken;
   }
 
   .buidling_builds_push{
