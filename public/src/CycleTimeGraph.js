@@ -11,8 +11,7 @@ var CycleTime = CycleTime || {};
 				maximumYCalculator.calculate(points);
 			}
 
-			function render(maxY){
-				console.log(lineGraph)
+			function render(maxY){				
 				lineGraph.render(maxY,graphPoints);
 			}
 
