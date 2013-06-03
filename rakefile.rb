@@ -1,4 +1,4 @@
-require './tests/jscript/lib/qunit.rb'
+require_relative './tests/jscript/lib/qunit.rb'
 require 'rbconfig'
 
 task :default => [:update, :unit_tests, :commit, :deploy]
