@@ -98,6 +98,22 @@
 		equal(clearCalled,true);
 	});
 
+	test("When failed previously And then updated with non failing Then failed class removed", function(){
+		var buildData = [{status: "Failure"}],
+			failedClass = "builds-failed",
+			buildStatusWidget = $(".build_status");
+		buildStatusWidget.addClass(failedClass);
+		new Builds.BuildStatus({buildLists: new Builds.BuildLists(StubListAdder,StubListAdder),
+								failedBuildsList: StubListAdder,
+								runningBuildsList: StubListAdder})
+								.update([{}]);
+
+		equal(buildStatusWidget.hasClass(failedClass), false);
+	});
+
+
+
+
 
 })();
 
