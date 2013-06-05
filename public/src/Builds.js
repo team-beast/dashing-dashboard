@@ -67,6 +67,7 @@ var Builds = Builds || {};
 		}
 
 		function clearList(){
+			BUILD_STATUS_WIDGET.removeClass(FAILED_CLASS);
 			buildLists.clear();
 		}
 
