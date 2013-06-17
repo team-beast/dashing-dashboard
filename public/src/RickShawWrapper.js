@@ -49,7 +49,7 @@ var LineGraphFactory = function(element,lineColor){
 			j.show();
 			setTimeout(function(){
 				j.css('display', 'none');
-			}, 100);
+			}, 10);
 		}, 120000);
 	});
 })();
