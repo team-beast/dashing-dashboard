@@ -1,29 +1,6 @@
 require_relative "../redis/RedisWrapper"
 require 'json'
 module CycleTime
-
-	class CurrentGraphDataSet
-		def initialize(redis_wrapper)
-			@graph_points_serializer = GraphPointsSerializer.new(redis_wrapper)
-			@graph_times = @graph_points_serializer.deserialize
-		end
-
-		def add(graph_time)
-			maintain_length_of_84!
-			@graph_times.push(graph_time)
-			@graph_points_serializer.serialize(@graph_times)
-		end
-
-		def get
-			@graph_times
-		end
-
-		private
-		def maintain_length_of_84!()
-			@graph_times.shift if @graph_times.length >= 84			
-		end
-	end
-
 	class CycleTimeGraphPoints
 		def initialize(options = {:redis_wrapper => RedisWrapper.new})
 			@current_graph_data_set = CurrentGraphDataSet.new(options[:redis_wrapper])
@@ -47,6 +24,30 @@ module CycleTime
 			last_cycle_time[:x]+1
 		end
 	end
+
+	class CurrentGraphDataSet
+		def initialize(redis_wrapper)
+			@graph_points_serializer = GraphPointsSerializer.new(redis_wrapper)
+			@graph_times = @graph_points_serializer.deserialize
+		end
+
+		def add(graph_time)
+			maintain_length_of_84!
+			@graph_times.push(graph_time)
+			@graph_points_serializer.serialize(@graph_times)
+		end
+
+		def get
+			@graph_times
+		end
+
+		private
+		def maintain_length_of_84!()
+			@graph_times.shift if @graph_times.length >= 84			
+		end
+	end
+
+	
 
 
 	class GraphPointsSerializer
